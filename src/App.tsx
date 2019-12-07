@@ -9,7 +9,6 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import LoginPage from './pages/LoginPage'
 import HomePage from './pages/HomePage'
 import './i18n'
-import './App.css'
 
 const App = () => {
   const token = ''
