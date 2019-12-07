@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -16,14 +17,14 @@ const useStyles = makeStyles(theme => ({
 
 const Header = () => {
   const classes = useStyles()
+  const { t } = useTranslation()
   const onConfirmExit = () => console.log('confirm exit')
 
   return (
     <AppBar>
       <Toolbar disableGutters>
-        {/* TODO: use translations */}
         <Typography variant="h5" className={classes.title}>
-          CRUD application
+          {t('appTitle')}
         </Typography>
         <IconButton color="inherit" onClick={onConfirmExit}>
           <ExitToAppIcon />

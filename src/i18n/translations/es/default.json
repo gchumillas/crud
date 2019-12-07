@@ -1,0 +1,44 @@
+{
+  "http": {
+    "network_error": "Error de red.",
+    "forbidden": "Las credenciales no son válidas.",
+    "unauthorized": "No tiene suficientes permisos.",
+    "not_found": "Recurso no encontrado."
+  },
+  "app": {
+    "title": "ANIS"
+  },
+  "button": {
+    "accept": "Aceptar",
+    "cancel": "Cancelar",
+    "continue": "Continuar"
+  },
+  "newProjectDialog": {
+    "title": "Nuevo proyecto",
+    "nameField": "Nombre"
+  },
+  "exitDialog": {
+    "title": "Cerrar sesión",
+    "message": "¿Está seguro de que desea salir?"
+  },
+  "forbiddenDialog": {
+    "title": "Credenciales no válidas",
+    "message": "Sus credenciales no son válidas o han expirado.",
+    "acceptLabel": "Redirigir a login"
+  },
+  "menu": {
+    "projects": "Proyectos",
+    "datasets": "Datasets",
+    "addEntry": "Añadir entrada"
+  },
+  "pageNotFound": {
+    "title": "Página no encontrada",
+    "message": "La página solicitada no existe."
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "username": "Usuario",
+    "password": "Contraseña",
+    "rememberMe": "Recordarme en este equipo"
+  }
+}
