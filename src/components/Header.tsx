@@ -6,6 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import context from '../context'
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -14,11 +15,10 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-
 const Header = () => {
   const classes = useStyles()
+  const { logout } = React.useContext(context)
   const { t } = useTranslation()
-  const onConfirmExit = () => console.log('confirm exit')
 
   return (
     <AppBar>
@@ -26,7 +26,8 @@ const Header = () => {
         <Typography variant="h5" className={classes.title}>
           {t('appTitle')}
         </Typography>
-        <IconButton color="inherit" onClick={onConfirmExit}>
+        {/* TODO: confirm logout */}
+        <IconButton color="inherit" onClick={logout}>
           <ExitToAppIcon />
         </IconButton>
       </Toolbar>

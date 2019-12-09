@@ -27,6 +27,11 @@ const App = () => {
     setToken(res.data)
   }
 
+  const logout = () => {
+    sessionStorage.removeItem('token')
+    setToken('')
+  }
+
   // TODO: should be in a separate file
   const ProtectedRoute = ({ component: Component, ...rest }: RouteProps) => {
     if (!Component) return null
@@ -46,7 +51,7 @@ const App = () => {
   }
 
   return (
-    <context.Provider value={{ login }}>
+    <context.Provider value={{ login, logout }}>
       <Header />
       <CssBaseline />
       <BrowserRouter>

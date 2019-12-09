@@ -18,6 +18,7 @@ export default () => {
   const [loginState, onLogin] = useAsyncFn(() => login(username, password), [username, password])
 
   // TODO: notify http errors
+  // TODO: capture enter key
   return (
     <Dialog open fullWidth maxWidth="sm">
       <DialogTitle>{t('pages.login.title')}</DialogTitle>
