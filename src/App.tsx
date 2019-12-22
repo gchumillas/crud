@@ -47,7 +47,7 @@ const App = () => {
   return (
     <context.Provider value={{ token, login, logout }}>
       <CssBaseline />
-      <Container maxWidth="md">
+      <Container disableGutters maxWidth="md">
         <Header />
         <BrowserRouter>
           <Switch>
