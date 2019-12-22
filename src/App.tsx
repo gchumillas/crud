@@ -12,7 +12,7 @@ import HomePage from './pages/HomePage'
 import './i18n'
 
 const App = () => {
-  const [token, setToken] = React.useState(sessionStorage.getItem('token'))
+  const [token, setToken] = React.useState(sessionStorage.getItem('token') || '')
 
   const login = async (username: string, password: string) => {
     const token = await loginProvider(username, password)
@@ -45,7 +45,7 @@ const App = () => {
   }
 
   return (
-    <context.Provider value={{ login, logout }}>
+    <context.Provider value={{ token, login, logout }}>
       <Header />
       <CssBaseline />
       <BrowserRouter>
