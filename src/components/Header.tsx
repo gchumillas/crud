@@ -21,7 +21,7 @@ const Header = () => {
   const { t } = useTranslation()
 
   return (
-    <AppBar>
+    <AppBar position="static">
       <Toolbar disableGutters>
         <Typography variant="h5" className={classes.title}>
           {t('appTitle')}

@@ -3,7 +3,7 @@
 // TODO: use absolute paths
 import React from 'react'
 import { BrowserRouter, Route, Switch, Redirect, RouteProps } from 'react-router-dom'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import { CssBaseline, Container } from '@material-ui/core'
 import context from './context'
 import { login as loginProvider } from './providers/user'
 import Header from './components/Header'
@@ -46,22 +46,24 @@ const App = () => {
 
   return (
     <context.Provider value={{ token, login, logout }}>
-      <Header />
       <CssBaseline />
-      <BrowserRouter>
-        <Switch>
-          <Route
-            path="/login"
-            render={props => {
-              const state = props.location.state
-              const page = state ? state.referrer : '/'
+      <Container maxWidth="md">
+        <Header />
+        <BrowserRouter>
+          <Switch>
+            <Route
+              path="/login"
+              render={props => {
+                const state = props.location.state
+                const page = state ? state.referrer : '/'
 
-              return token ? <Redirect to={page} /> : <LoginPage />
-            }}
-          />
-          <ProtectedRoute path="/" component={HomePage} />
-        </Switch>
-      </BrowserRouter>
+                return token ? <Redirect to={page} /> : <LoginPage />
+              }}
+            />
+            <ProtectedRoute path="/" component={HomePage} />
+          </Switch>
+        </BrowserRouter>
+      </Container>
     </context.Provider>
   )
 }
