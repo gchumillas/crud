@@ -7,8 +7,8 @@ import { CssBaseline, Container } from '@material-ui/core'
 import context from './context'
 import { login as loginProvider } from './providers/user'
 import Header from './components/Header'
-import LoginPage from './pages/LoginPage'
-import HomePage from './pages/HomePage'
+import LoginPage from './routes/LoginPage'
+import HomePage from './routes/HomePage'
 import './i18n'
 
 const App = () => {
