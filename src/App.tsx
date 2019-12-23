@@ -7,7 +7,7 @@ import { CssBaseline, Container } from '@material-ui/core'
 import context from './context'
 import { login as loginProvider } from './providers/user'
 import Header from './components/Header'
-import LoginPage from './routes/LoginPage'
+import LoginDialog from './routes/LoginDialog'
 import HomePage from './routes/HomePage'
 import './i18n'
 
@@ -58,7 +58,7 @@ const App = () => {
                 const state = props.location.state
                 const page = state ? state.referrer : '/'
 
-                return token ? <Redirect to={page} /> : <LoginPage />
+                return token ? <Redirect to={page} /> : <LoginDialog />
               }}
             />
             <ProtectedRoute path="/" component={HomePage} />

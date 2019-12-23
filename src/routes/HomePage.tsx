@@ -11,10 +11,10 @@ import {
   Delete as DeleteIcon
 } from '@material-ui/icons'
 import { Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from '@material-ui/core'
-import NotFoundPage from './NotFoundPage'
-import CreateItemPage from './CreateItemPage'
-import EditItemPage from './EditItemPage'
-import DeleteItemPage from './DeleteItemPage'
+import NotFoundPage from './NotFoundDialog'
+import CreateItemDialog from './CreateItemDialog'
+import EditItemDialog from './EditItemDialog'
+import DeleteItemDialog from './DeleteItemDialog'
 
 type Props = {
   history: History,
@@ -68,9 +68,9 @@ export default ({ history, match }: Props) => {
       </Paper>
       <Switch>
         <Route exact path={`${path}/`} />
-        <Route path={`${path}/create-item`} component={CreateItemPage} />
-        <Route path={`${path}/edit-item/:id`} component={EditItemPage} />
-        <Route path={`${path}/delete-item/:id`} component={DeleteItemPage} />
+        <Route path={`${path}/create-item`} component={CreateItemDialog} />
+        <Route path={`${path}/edit-item/:id`} component={EditItemDialog} />
+        <Route path={`${path}/delete-item/:id`} component={DeleteItemDialog} />
         <Route component={NotFoundPage} />
       </Switch>
     </>
