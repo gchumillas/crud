@@ -23,6 +23,7 @@ const Header = () => {
   return (
     <AppBar position="static">
       <Toolbar disableGutters>
+        {/* TODO: make the title clickable */}
         <Typography variant="h5" className={classes.title}>
           {t('appTitle')}
         </Typography>
