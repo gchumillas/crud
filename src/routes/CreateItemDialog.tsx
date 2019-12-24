@@ -21,14 +21,10 @@ export default ({ history }: Props) => {
   const { token } = React.useContext(context)
   const [title, setTitle] = React.useState('')
   const [description, setDescription] = React.useState('')
-  const [state, submit] = useAsyncFn(async () => {
+  const [state, onSubmit] = useAsyncFn(async () => {
     await createItem(token, title, description)
     history.push('/')
-  })
-
-  const onSubmit = () => {
-    submit()
-  }
+  }, [title, description])
 
   return (
     <Dialog open fullWidth maxWidth="sm">
@@ -43,7 +39,7 @@ export default ({ history }: Props) => {
       <DialogActions>
         {/* TODO: should be disabled while the request is loading */}
         {/* TODO: create a custom 'submit' button */}
-        <Button disabled={state.loading}>{t('buttons.cancel')}</Button>
+        <Button disabled={state.loading} onClick={() => history.push('/')}>{t('buttons.cancel')}</Button>
         <Button disabled={state.loading} type="submit" onClick={onSubmit}>{t('buttons.continue')}</Button>
       </DialogActions>
     </Dialog>
