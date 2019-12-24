@@ -47,7 +47,6 @@ export default ({ history, match }: Props) => {
         {error && <Typography color="error">{error.message}</Typography>}
       </DialogContent>
       <DialogActions>
-        {/* TODO: create a custom 'submit' button */}
         <Button disabled={loading} onClick={() => history.push('/')}>{t('buttons.cancel')}</Button>
         <Button disabled={loading} type="submit" onClick={onSubmit}>{t('buttons.continue')}</Button>
       </DialogActions>
