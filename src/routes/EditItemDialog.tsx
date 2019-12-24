@@ -1,18 +1,17 @@
 import React from 'react'
 import { useAsyncFn, useAsync } from 'react-use'
 import { useTranslation } from 'react-i18next'
-import { match } from 'react-router-dom'
-import { History } from 'history'
+import { match, useHistory } from 'react-router-dom'
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
 import { readItem, updateItem } from '../providers/item'
 
 type Props = {
-  history: History,
   match: match<{ id: string }>
 }
 
-export default ({ history, match }: Props) => {
+export default ({ match }: Props) => {
+  const history = useHistory()
   const { t } = useTranslation()
   const { token } = React.useContext(appContext)
   const { refresh } = React.useContext(pageContext)

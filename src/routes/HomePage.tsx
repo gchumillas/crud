@@ -2,8 +2,7 @@ import _ from 'lodash'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAsyncRetry } from 'react-use'
-import { Switch, Route, match } from 'react-router-dom'
-import { History } from 'history'
+import { Switch, Route, match, useHistory } from 'react-router-dom'
 import { readItems } from '../providers/item'
 import {
   Add as AddIcon,
@@ -18,11 +17,11 @@ import EditItemDialog from './EditItemDialog'
 import DeleteItemDialog from './DeleteItemDialog'
 
 type Props = {
-  history: History,
   match: match
 }
 
-export default ({ history, match }: Props) => {
+export default ({ match }: Props) => {
+  const history = useHistory()
   const { t } = useTranslation()
   const { token } = React.useContext(appContext)
   const state = useAsyncRetry(() => readItems(token))

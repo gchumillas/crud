@@ -1,16 +1,13 @@
 import React from 'react'
 import { useAsyncFn } from 'react-use'
+import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { History } from 'history'
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
 import { createItem } from '../providers/item'
 
-type Props = {
-  history: History
-}
-
-export default ({ history }: Props) => {
+export default () => {
+  const history = useHistory()
   const { t } = useTranslation()
   const { token } = React.useContext(appContext)
   const { refresh } = React.useContext(pageContext)
