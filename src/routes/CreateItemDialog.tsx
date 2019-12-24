@@ -10,6 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import context from '../context'
+import { homeContext } from './HomePage'
 import { createItem } from '../providers/item'
 
 type Props = {
@@ -19,10 +20,12 @@ type Props = {
 export default ({ history }: Props) => {
   const { t } = useTranslation()
   const { token } = React.useContext(context)
+  const { refresh } = React.useContext(homeContext)
   const [title, setTitle] = React.useState('')
   const [description, setDescription] = React.useState('')
   const [state, onSubmit] = useAsyncFn(async () => {
     await createItem(token, title, description)
+    refresh()
     history.push('/')
   }, [title, description])
 

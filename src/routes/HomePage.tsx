@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React from 'react'
-import { useAsync } from 'react-use'
+import { useAsyncRetry } from 'react-use'
 import { Switch, Route, match } from 'react-router-dom'
 import { History } from 'history'
 import { getItems } from '../providers/item'
@@ -21,9 +21,13 @@ type Props = {
   match: match<{ path: string }>
 }
 
+export const homeContext = React.createContext({
+  refresh: () => {}
+})
+
 export default ({ history, match }: Props) => {
   const { token } = React.useContext(context)
-  const state = useAsync(() => getItems(token))
+  const state = useAsyncRetry(() => getItems(token))
   const rows = _.get(state.value, 'items') || []
   const path = _.trimEnd(match.path, '/')
 
@@ -31,7 +35,7 @@ export default ({ history, match }: Props) => {
   // TODO: state.loading, state.error && state.value
   // TODO: i18n
   return (
-    <>
+    <homeContext.Provider value={{ refresh: state.retry }}>
       <Paper>
         <Table aria-label="simple table">
           <TableHead>
@@ -73,6 +77,6 @@ export default ({ history, match }: Props) => {
         <Route path={`${path}/delete-item/:id`} component={DeleteItemDialog} />
         <Route component={NotFoundPage} />
       </Switch>
-    </>
+    </homeContext.Provider>
   )
 }
