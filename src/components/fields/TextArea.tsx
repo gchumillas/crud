@@ -1,7 +1,7 @@
 import React from 'react'
 import { TextField, TextFieldProps } from '@material-ui/core'
 
-type Props = Omit<TextFieldProps, 'onChange'> & {
+type Props = Omit<TextFieldProps, 'onChange' | 'multiline'> & {
   onChange: (value: string) => void
 }
 
