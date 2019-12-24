@@ -1,10 +1,11 @@
 import React from 'react'
 import { useAsyncFn } from 'react-use'
 import { useTranslation } from 'react-i18next'
-import { Dialog, DialogTitle, DialogContent, DialogActions, Typography } from '@material-ui/core'
+import { DialogTitle, DialogContent, DialogActions, Typography } from '@material-ui/core'
 import { appContext } from '../lib/context'
 import SubmitButton from '../components/buttons/SubmitButton'
 import TextField from '../components/fields/TextField'
+import Dialog from '../components/Dialog'
 
 export default () => {
   const { t } = useTranslation()
@@ -15,7 +16,7 @@ export default () => {
 
   // TODO: notify http errors
   return (
-    <Dialog open fullWidth maxWidth="sm" onKeyDown={e => e.key === 'Enter' && submit()}>
+    <Dialog onKeyDown={e => e.key === 'Enter' && submit()}>
       <DialogTitle>{t('routes.login.title')}</DialogTitle>
       <DialogContent>
         {/* TODO: add a select field to change the language */}

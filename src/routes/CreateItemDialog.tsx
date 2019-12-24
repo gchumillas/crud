@@ -2,12 +2,13 @@ import React from 'react'
 import { useAsyncFn } from 'react-use'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Typography } from '@material-ui/core'
+import { Button, DialogTitle, DialogContent, DialogActions, Typography } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
 import { createItem } from '../providers/item'
 import SubmitButton from '../components/buttons/SubmitButton'
 import TextField from '../components/fields/TextField'
 import TextArea from '../components/fields/TextArea'
+import Dialog from '../components/Dialog'
 
 export default () => {
   const history = useHistory()
@@ -23,7 +24,7 @@ export default () => {
   }, [title, description])
 
   return (
-    <Dialog open fullWidth maxWidth="sm">
+    <Dialog>
       <DialogTitle>{t('routes.createItem.title')}</DialogTitle>
       <DialogContent>
         <TextField autoFocus required label={t('routes.createItem.titleField')} value={title} onChange={setTitle} />

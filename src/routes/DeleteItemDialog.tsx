@@ -2,10 +2,11 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAsyncFn } from 'react-use'
 import { useHistory, useParams } from 'react-router-dom'
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Typography } from '@material-ui/core'
+import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, Typography } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
 import { deleteItem } from '../providers/item'
 import SubmitButton from '../components/buttons/SubmitButton'
+import Dialog from '../components/Dialog'
 
 export default () => {
   const history = useHistory()
@@ -21,7 +22,7 @@ export default () => {
   }, [params.id])
 
   return (
-    <Dialog open fullWidth maxWidth="xs">
+    <Dialog maxWidth="xs">
       <DialogTitle>{t('routes.deleteItem.title')}</DialogTitle>
       <DialogContent>
         <DialogContentText>
