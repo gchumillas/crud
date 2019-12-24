@@ -26,8 +26,8 @@ export default () => {
         {/* TODO: add a select field to change the language */}
         {/* TODO: add a 'remember username' checkbox */}
         {/* TODO: create custom text fields */}
-        <TextField fullWidth autoFocus autoComplete="username" label={t('routes.login.username')} value={username} onChange={event => setUsername(event.target.value)} />
-        <TextField fullWidth autoComplete="password" type="password" label={t('routes.login.password')} value={password} onChange={event => setPassword(event.target.value)} />
+        <TextField fullWidth autoFocus autoComplete="username" label={t('routes.login.usernameField')} value={username} onChange={event => setUsername(event.target.value)} />
+        <TextField fullWidth autoComplete="password" type="password" label={t('routes.login.passwordField')} value={password} onChange={event => setPassword(event.target.value)} />
       </DialogContent>
       <DialogContent>
         {/* TODO: show a custom error message */}

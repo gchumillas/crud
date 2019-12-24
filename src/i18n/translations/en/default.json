@@ -1,13 +1,19 @@
 {
   "appTitle": "CRUD application",
   "buttons": {
+    "cancel": "Cancel",
     "continue": "Continue"
   },
   "routes": {
     "login": {
       "title": "Login",
-      "username": "Username",
-      "password": "Password"
+      "usernameField": "Username",
+      "passwordField": "Password"
+    },
+    "createItem": {
+      "title": "Create item",
+      "titleField": "Title",
+      "descriptionField": "Description"
     }
   }
 }

@@ -34,8 +34,8 @@ export default ({ history }: Props) => {
     <Dialog open fullWidth maxWidth="sm">
       <DialogTitle>{t('routes.createItem.title')}</DialogTitle>
       <DialogContent>
-        <TextField fullWidth autoFocus label={t('routes.createItem.title')} value={title} onChange={event => setTitle(event.target.value)} />
-        <TextField fullWidth label={t('routes.createItem.description')} value={description} onChange={event => setDescription(event.target.value)} />
+        <TextField fullWidth autoFocus required label={t('routes.createItem.titleField')} value={title} onChange={event => setTitle(event.target.value)} />
+        <TextField fullWidth label={t('routes.createItem.descriptionField')} multiline rows={5} value={description} onChange={event => setDescription(event.target.value)} />
       </DialogContent>
       <DialogContent>
         {state.error && <Typography color="error">{state.error.message}</Typography>}
