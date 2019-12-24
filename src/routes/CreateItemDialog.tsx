@@ -3,8 +3,8 @@ import { useAsyncFn } from 'react-use'
 import { useTranslation } from 'react-i18next'
 import { History } from 'history'
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@material-ui/core'
-import { appContext, pageContext } from '../context'
-import { createItem } from '../providers/item'
+import { appContext, pageContext } from '~/context'
+import { createItem } from '~/providers/item'
 
 type Props = {
   history: History

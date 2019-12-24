@@ -2,7 +2,7 @@ import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import resources from './translations'
-import { DEFAULT_LANGUAGE } from '../env'
+import { DEFAULT_LANGUAGE } from '~/env'
 
 // TODO: (low) use Locize service.
 i18n

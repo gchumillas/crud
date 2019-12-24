@@ -4,8 +4,8 @@ import { useAsyncFn } from 'react-use'
 import { match } from 'react-router-dom'
 import { History } from 'history'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Typography } from '@material-ui/core'
-import { appContext, pageContext } from '../context'
-import { deleteItem } from '../providers/item'
+import { appContext, pageContext } from '~/context'
+import { deleteItem } from '~/providers/item'
 
 type Props = {
   history: History,

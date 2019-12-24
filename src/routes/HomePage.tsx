@@ -3,14 +3,14 @@ import React from 'react'
 import { useAsyncRetry } from 'react-use'
 import { Switch, Route, match } from 'react-router-dom'
 import { History } from 'history'
-import { getItems } from '../providers/item'
+import { getItems } from '~/providers/item'
 import {
   Add as AddIcon,
   Edit as EditIcon,
   Delete as DeleteIcon
 } from '@material-ui/icons'
 import { Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from '@material-ui/core'
-import { appContext, pageContext } from '../context'
+import { appContext, pageContext } from '~/context'
 import NotFoundPage from './NotFoundDialog'
 import CreateItemDialog from './CreateItemDialog'
 import EditItemDialog from './EditItemDialog'

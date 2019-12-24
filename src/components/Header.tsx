@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { makeStyles } from '@material-ui/core/styles'
 import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-import { appContext } from '../context'
+import { appContext } from '~/context'
 
 const useStyles = makeStyles(theme => ({
   title: {
