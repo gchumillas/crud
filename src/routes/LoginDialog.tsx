@@ -12,9 +12,8 @@ export default () => {
   const [loginState, onLogin] = useAsyncFn(() => login(username, password), [username, password])
 
   // TODO: notify http errors
-  // TODO: capture enter key
   return (
-    <Dialog open fullWidth maxWidth="sm">
+    <Dialog open fullWidth maxWidth="sm" onKeyDown={e => e.key === 'Enter' && onLogin()}>
       <DialogTitle>{t('routes.login.title')}</DialogTitle>
       <DialogContent>
         {/* TODO: add a select field to change the language */}
