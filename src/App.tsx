@@ -1,4 +1,3 @@
-// TODO: use absolute paths
 import React from 'react'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { CssBaseline, Container } from '@material-ui/core'
