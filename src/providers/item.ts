@@ -1,8 +1,7 @@
 import { http } from '../lib/http'
 import { API_URL } from '../lib/env'
 
-// TODO: rename by readItems (so we have CRUD functions)
-export const getItems = async (token: string): Promise<{
+export const readItems = async (token: string): Promise<{
   items: Array<{
     id: string,
     title: string,

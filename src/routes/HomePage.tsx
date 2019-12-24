@@ -3,7 +3,7 @@ import React from 'react'
 import { useAsyncRetry } from 'react-use'
 import { Switch, Route, match } from 'react-router-dom'
 import { History } from 'history'
-import { getItems } from '../providers/item'
+import { readItems } from '../providers/item'
 import {
   Add as AddIcon,
   Edit as EditIcon,
@@ -23,7 +23,7 @@ type Props = {
 
 export default ({ history, match }: Props) => {
   const { token } = React.useContext(appContext)
-  const state = useAsyncRetry(() => getItems(token))
+  const state = useAsyncRetry(() => readItems(token))
   const rows = _.get(state.value, 'items') || []
   const path = _.trimEnd(match.path, '/')
 
