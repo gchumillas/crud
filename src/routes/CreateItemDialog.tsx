@@ -33,7 +33,6 @@ export default ({ history }: Props) => {
         {state.error && <Typography color="error">{state.error.message}</Typography>}
       </DialogContent>
       <DialogActions>
-        {/* TODO: should be disabled while the request is loading */}
         {/* TODO: create a custom 'submit' button */}
         <Button disabled={state.loading} onClick={() => history.push('/')}>{t('buttons.cancel')}</Button>
         <Button disabled={state.loading} type="submit" onClick={onSubmit}>{t('buttons.continue')}</Button>

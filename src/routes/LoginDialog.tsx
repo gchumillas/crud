@@ -28,7 +28,6 @@ export default () => {
         {loginState.error && <Typography color="error">{loginState.error.message}</Typography>}
       </DialogContent>
       <DialogActions>
-        {/* TODO: should be disabled while the request is loading */}
         {/* TODO: create a custom 'submit' button */}
         <Button disabled={loginState.loading} type="submit" onClick={onLogin}>{t('buttons.continue')}</Button>
       </DialogActions>
