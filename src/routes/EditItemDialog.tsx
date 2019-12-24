@@ -7,6 +7,7 @@ import { appContext, pageContext } from '../lib/context'
 import { readItem, updateItem } from '../providers/item'
 import SubmitButton from '../components/buttons/SubmitButton'
 import TextField from '../components/fields/TextField'
+import TextArea from '../components/fields/TextArea'
 
 export default () => {
   const history = useHistory()
@@ -38,7 +39,7 @@ export default () => {
       <DialogTitle>{t('routes.editItem.title')}</DialogTitle>
       <DialogContent>
         <TextField autoFocus required label={t('routes.editItem.titleField')} value={title} onChange={setTitle} />
-        <TextField label={t('routes.editItem.descriptionField')} multiline rows={5} value={description} onChange={setDescription} />
+        <TextArea label={t('routes.editItem.descriptionField')} value={description} onChange={setDescription} />
       </DialogContent>
       <DialogContent>
         {error && <Typography color="error">{error.message}</Typography>}

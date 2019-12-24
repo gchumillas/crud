@@ -7,6 +7,7 @@ import { appContext, pageContext } from '../lib/context'
 import { createItem } from '../providers/item'
 import SubmitButton from '../components/buttons/SubmitButton'
 import TextField from '../components/fields/TextField'
+import TextArea from '../components/fields/TextArea'
 
 export default () => {
   const history = useHistory()
@@ -26,7 +27,7 @@ export default () => {
       <DialogTitle>{t('routes.createItem.title')}</DialogTitle>
       <DialogContent>
         <TextField autoFocus required label={t('routes.createItem.titleField')} value={title} onChange={setTitle} />
-        <TextField label={t('routes.createItem.descriptionField')} multiline rows={5} value={description} onChange={setDescription} />
+        <TextArea label={t('routes.createItem.descriptionField')} value={description} onChange={setDescription} />
       </DialogContent>
       <DialogContent>
         {state.error && <Typography color="error">{state.error.message}</Typography>}
