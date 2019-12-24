@@ -2,7 +2,10 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { makeStyles } from '@material-ui/core/styles'
 import { Home as HomeIcon } from '@material-ui/icons'
-import { AppBar, Toolbar, IconButton, Typography, Link } from '@material-ui/core'
+import {
+  AppBar, Toolbar, IconButton, Typography, Link, Button,
+  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions
+} from '@material-ui/core'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import { appContext } from '../context'
 
@@ -16,6 +19,7 @@ const Header = () => {
   const classes = useStyles()
   const { logout } = React.useContext(appContext)
   const { t } = useTranslation()
+  const [confirmDialogOpen, setConfirmDialogOpen] = React.useState(false)
 
   return (
     <AppBar position="static">
@@ -28,11 +32,23 @@ const Header = () => {
             {t('appTitle')}
           </Link>
         </Typography>
-        {/* TODO: confirm logout */}
-        <IconButton color="inherit" onClick={logout}>
+        <IconButton color="inherit" onClick={() => setConfirmDialogOpen(true)}>
           <ExitToAppIcon />
         </IconButton>
       </Toolbar>
+      {/* CONFIRM DIALOG */}
+      <Dialog open={confirmDialogOpen} fullWidth maxWidth="xs">
+        <DialogTitle>{t('header.confirmDialogTitle')}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {t('header.confirmDialogText')}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setConfirmDialogOpen(false)}>{t('buttons.cancel')}</Button>
+          <Button type="submit" onClick={logout}>{t('buttons.continue')}</Button>
+        </DialogActions>
+      </Dialog>
     </AppBar>
   )
 }

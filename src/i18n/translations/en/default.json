@@ -1,5 +1,9 @@
 {
   "appTitle": "CRUD application",
+  "header": {
+    "confirmDialogTitle": "Logout",
+    "confirmDialogText": "Are you sure you want to exit the application?"
+  },
   "buttons": {
     "cancel": "Cancel",
     "continue": "Continue"
