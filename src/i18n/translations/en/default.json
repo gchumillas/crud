@@ -1,0 +1,43 @@
+{
+  "appTitle": "CRUD application",
+  "header": {
+    "confirmDialogTitle": "Logout",
+    "confirmDialogText": "Are you sure you want to exit the application?"
+  },
+  "buttons": {
+    "cancel": "Cancel",
+    "continue": "Continue"
+  },
+  "routes": {
+    "notFound": {
+      "title": "Page not found",
+      "text": "The requested page was not found."
+    },
+    "login": {
+      "title": "Login",
+      "usernameField": "Username",
+      "passwordField": "Password"
+    },
+    "home": {
+      "titleColumn": "Title",
+      "descriptionColumn": "Description",
+      "addItem": "Add new item",
+      "editItem": "EditItem",
+      "deleteItem": "Delete item"
+    },
+    "createItem": {
+      "title": "Create item",
+      "titleField": "Title",
+      "descriptionField": "Description"
+    },
+    "deleteItem": {
+      "title": "Delete item",
+      "confirmText": "This operation can't be reversed."
+    },
+    "editItem": {
+      "title": "Edit item",
+      "titleField": "Title",
+      "descriptionField": "Description"
+    }
+  }
+}
