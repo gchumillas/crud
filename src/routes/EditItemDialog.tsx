@@ -5,6 +5,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
 import { readItem, updateItem } from '../providers/item'
+import SubmitButton from '../components/buttons/SubmitButton'
 
 export default () => {
   const history = useHistory()
@@ -43,7 +44,7 @@ export default () => {
       </DialogContent>
       <DialogActions>
         <Button disabled={loading} onClick={() => history.push('/')}>{t('buttons.cancel')}</Button>
-        <Button disabled={loading} type="submit" onClick={onSubmit}>{t('buttons.continue')}</Button>
+        <SubmitButton disabled={loading} onClick={onSubmit}>{t('buttons.continue')}</SubmitButton>
       </DialogActions>
     </Dialog>
   )

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
 import { createItem } from '../providers/item'
+import SubmitButton from '../components/buttons/SubmitButton'
 
 export default () => {
   const history = useHistory()
@@ -30,9 +31,8 @@ export default () => {
         {state.error && <Typography color="error">{state.error.message}</Typography>}
       </DialogContent>
       <DialogActions>
-        {/* TODO: create a custom 'submit' button */}
         <Button disabled={state.loading} onClick={() => history.push('/')}>{t('buttons.cancel')}</Button>
-        <Button disabled={state.loading} type="submit" onClick={onSubmit}>{t('buttons.continue')}</Button>
+        <SubmitButton disabled={state.loading} onClick={onSubmit}>{t('buttons.continue')}</SubmitButton>
       </DialogActions>
     </Dialog>
   )

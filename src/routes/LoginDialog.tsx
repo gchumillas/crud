@@ -1,8 +1,9 @@
 import React from 'react'
 import { useAsyncFn } from 'react-use'
 import { useTranslation } from 'react-i18next'
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@material-ui/core'
+import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@material-ui/core'
 import { appContext } from '../lib/context'
+import SubmitButton from '../components/buttons/SubmitButton'
 
 export default () => {
   const { t } = useTranslation()
@@ -27,8 +28,7 @@ export default () => {
         {state.error && <Typography color="error">{state.error.message}</Typography>}
       </DialogContent>
       <DialogActions>
-        {/* TODO: create a custom 'submit' button */}
-        <Button disabled={state.loading} type="submit" onClick={submit}>{t('buttons.continue')}</Button>
+        <SubmitButton disabled={state.loading} onClick={submit}>{t('buttons.continue')}</SubmitButton>
       </DialogActions>
     </Dialog>
   )

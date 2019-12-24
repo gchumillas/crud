@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import { appContext } from '../lib/context'
+import SubmitButton from './buttons/SubmitButton'
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -20,6 +21,11 @@ const Header = () => {
   const { logout } = React.useContext(appContext)
   const { t } = useTranslation()
   const [confirmDialogOpen, setConfirmDialogOpen] = React.useState(false)
+
+  const onLogout = () => {
+    setConfirmDialogOpen(false)
+    logout()
+  }
 
   return (
     <AppBar position="static">
@@ -46,7 +52,7 @@ const Header = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setConfirmDialogOpen(false)}>{t('buttons.cancel')}</Button>
-          <Button type="submit" onClick={logout}>{t('buttons.continue')}</Button>
+          <SubmitButton onClick={onLogout}>{t('buttons.continue')}</SubmitButton>
         </DialogActions>
       </Dialog>
     </AppBar>
