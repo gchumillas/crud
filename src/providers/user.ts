@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_URL } from '../env'
+import { API_URL } from '../lib/env'
 
 export const login = async (username: string, password: string): Promise<{
   token: string
