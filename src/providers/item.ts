@@ -21,3 +21,8 @@ export const getItems = async (token: string): Promise<{
 
   return res.data
 }
+
+export const deleteItem = async (token: string, id: string): Promise<void> => {
+  const url = [API_URL, `/items/${id}`].join('')
+  await http(token).delete(url)
+}
