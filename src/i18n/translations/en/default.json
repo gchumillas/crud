@@ -3,7 +3,7 @@
   "buttons": {
     "continue": "Continue"
   },
-  "pages": {
+  "routes": {
     "login": {
       "title": "Login",
       "username": "Username",

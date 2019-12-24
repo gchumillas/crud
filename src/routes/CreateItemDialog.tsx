@@ -32,11 +32,10 @@ export default ({ history }: Props) => {
 
   return (
     <Dialog open fullWidth maxWidth="sm">
-      {/* TODO: i18n, rename `pages.`` by `routes.`` */}
-      <DialogTitle>{t('pages.createItem.title')}</DialogTitle>
+      <DialogTitle>{t('routes.createItem.title')}</DialogTitle>
       <DialogContent>
-        <TextField fullWidth autoFocus label={t('pages.createItem.title')} value={title} onChange={event => setTitle(event.target.value)} />
-        <TextField fullWidth label={t('pages.createItem.description')} value={description} onChange={event => setDescription(event.target.value)} />
+        <TextField fullWidth autoFocus label={t('routes.createItem.title')} value={title} onChange={event => setTitle(event.target.value)} />
+        <TextField fullWidth label={t('routes.createItem.description')} value={description} onChange={event => setDescription(event.target.value)} />
       </DialogContent>
       <DialogContent>
         {state.error && <Typography color="error">{state.error.message}</Typography>}

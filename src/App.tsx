@@ -15,7 +15,8 @@ const App = () => {
   const [token, setToken] = React.useState(sessionStorage.getItem('token') || '')
 
   const login = async (username: string, password: string) => {
-    const token = await loginProvider(username, password)
+    const data = await loginProvider(username, password)
+    const { token } = data
 
     sessionStorage.setItem('token', token)
     setToken(token)
