@@ -28,7 +28,7 @@ export default ({ match }: Props) => {
   const rows = _.get(state.value, 'items') || []
   const path = _.trimEnd(match.path, '/')
 
-  // TODO: what happens on expiration session (401 erro)?
+  // TODO: what happens on expiration session (401 error)?
   // TODO: state.loading, state.error && state.value
   return (
     <pageContext.Provider value={{ refresh: state.retry }}>
