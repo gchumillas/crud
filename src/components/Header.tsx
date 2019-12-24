@@ -7,7 +7,7 @@ import {
   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions
 } from '@material-ui/core'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-import { appContext } from '../context'
+import { appContext } from '../lib/context'
 
 const useStyles = makeStyles(theme => ({
   title: {

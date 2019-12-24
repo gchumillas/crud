@@ -10,7 +10,7 @@ import {
   Delete as DeleteIcon
 } from '@material-ui/icons'
 import { Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from '@material-ui/core'
-import { appContext, pageContext } from '../context'
+import { appContext, pageContext } from '../lib/context'
 import NotFoundPage from './NotFoundDialog'
 import CreateItemDialog from './CreateItemDialog'
 import EditItemDialog from './EditItemDialog'

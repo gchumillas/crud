@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { CssBaseline, Container } from '@material-ui/core'
-import { appContext } from './context'
+import { appContext } from './lib/context'
 import { login as loginProvider } from './providers/user'
 import Header from './components/Header'
 import ProtectedRoute from './components/ProtectedRoute'

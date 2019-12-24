@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { match } from 'react-router-dom'
 import { History } from 'history'
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@material-ui/core'
-import { appContext, pageContext } from '../context'
+import { appContext, pageContext } from '../lib/context'
 import { readItem, updateItem } from '../providers/item'
 
 type Props = {
