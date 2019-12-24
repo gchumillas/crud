@@ -1,6 +1,14 @@
 import { http } from '../lib/http'
 import { API_URL } from '../env'
 
+export const createItem = async (token: string, title: string, description: string): Promise<{}> => {
+  const url = [API_URL, '/items'].join('')
+  const res = await http(token).post(url, { title, description })
+
+  return res.data
+}
+
+// TODO: rename by readItem (so we have CRUD functions)
 export const getItems = async (token: string): Promise<{
   items: Array<{
     id: string,

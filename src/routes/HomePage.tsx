@@ -3,7 +3,6 @@ import React from 'react'
 import { useAsync } from 'react-use'
 import { Switch, Route, match } from 'react-router-dom'
 import { History } from 'history'
-import context from '../context'
 import { getItems } from '../providers/item'
 import {
   Add as AddIcon,
@@ -11,6 +10,7 @@ import {
   Delete as DeleteIcon
 } from '@material-ui/icons'
 import { Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from '@material-ui/core'
+import context from '../context'
 import NotFoundPage from './NotFoundDialog'
 import CreateItemDialog from './CreateItemDialog'
 import EditItemDialog from './EditItemDialog'
