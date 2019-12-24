@@ -9,11 +9,11 @@ export default () => {
   const { login } = React.useContext(appContext)
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
-  const [loginState, onLogin] = useAsyncFn(() => login(username, password), [username, password])
+  const [state, submit] = useAsyncFn(() => login(username, password), [username, password])
 
   // TODO: notify http errors
   return (
-    <Dialog open fullWidth maxWidth="sm" onKeyDown={e => e.key === 'Enter' && onLogin()}>
+    <Dialog open fullWidth maxWidth="sm" onKeyDown={e => e.key === 'Enter' && submit()}>
       <DialogTitle>{t('routes.login.title')}</DialogTitle>
       <DialogContent>
         {/* TODO: add a select field to change the language */}
@@ -24,11 +24,11 @@ export default () => {
       </DialogContent>
       <DialogContent>
         {/* TODO: show a custom error message */}
-        {loginState.error && <Typography color="error">{loginState.error.message}</Typography>}
+        {state.error && <Typography color="error">{state.error.message}</Typography>}
       </DialogContent>
       <DialogActions>
         {/* TODO: create a custom 'submit' button */}
-        <Button disabled={loginState.loading} type="submit" onClick={onLogin}>{t('buttons.continue')}</Button>
+        <Button disabled={state.loading} type="submit" onClick={submit}>{t('buttons.continue')}</Button>
       </DialogActions>
     </Dialog>
   )
