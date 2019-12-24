@@ -9,6 +9,10 @@
     "continue": "Continue"
   },
   "routes": {
+    "notFound": {
+      "title": "Page not found",
+      "text": "The requested page was not found."
+    },
     "login": {
       "title": "Login",
       "usernameField": "Username",
