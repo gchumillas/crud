@@ -18,6 +18,11 @@
     "deleteItem": {
       "title": "Delete item",
       "confirmText": "This operation can't be reversed."
+    },
+    "editItem": {
+      "title": "Edit item",
+      "titleField": "Title",
+      "descriptionField": "Description"
     }
   }
 }
