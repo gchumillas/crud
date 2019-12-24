@@ -1,9 +1,10 @@
 import React from 'react'
 import { useAsyncFn } from 'react-use'
 import { useTranslation } from 'react-i18next'
-import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@material-ui/core'
+import { Dialog, DialogTitle, DialogContent, DialogActions, Typography } from '@material-ui/core'
 import { appContext } from '../lib/context'
 import SubmitButton from '../components/buttons/SubmitButton'
+import TextField from '../components/fields/TextField'
 
 export default () => {
   const { t } = useTranslation()
@@ -19,9 +20,8 @@ export default () => {
       <DialogContent>
         {/* TODO: add a select field to change the language */}
         {/* TODO: add a 'remember username' checkbox */}
-        {/* TODO: create custom text fields */}
-        <TextField fullWidth autoFocus autoComplete="username" label={t('routes.login.usernameField')} value={username} onChange={event => setUsername(event.target.value)} />
-        <TextField fullWidth autoComplete="password" type="password" label={t('routes.login.passwordField')} value={password} onChange={event => setPassword(event.target.value)} />
+        <TextField autoFocus autoComplete="username" label={t('routes.login.usernameField')} value={username} onChange={setUsername} />
+        <TextField autoComplete="password" type="password" label={t('routes.login.passwordField')} value={password} onChange={setPassword} />
       </DialogContent>
       <DialogContent>
         {/* TODO: show a custom error message */}

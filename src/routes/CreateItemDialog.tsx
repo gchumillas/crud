@@ -2,10 +2,11 @@ import React from 'react'
 import { useAsyncFn } from 'react-use'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@material-ui/core'
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Typography } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
 import { createItem } from '../providers/item'
 import SubmitButton from '../components/buttons/SubmitButton'
+import TextField from '../components/fields/TextField'
 
 export default () => {
   const history = useHistory()
@@ -24,8 +25,8 @@ export default () => {
     <Dialog open fullWidth maxWidth="sm">
       <DialogTitle>{t('routes.createItem.title')}</DialogTitle>
       <DialogContent>
-        <TextField fullWidth autoFocus required label={t('routes.createItem.titleField')} value={title} onChange={event => setTitle(event.target.value)} />
-        <TextField fullWidth label={t('routes.createItem.descriptionField')} multiline rows={5} value={description} onChange={event => setDescription(event.target.value)} />
+        <TextField autoFocus required label={t('routes.createItem.titleField')} value={title} onChange={setTitle} />
+        <TextField label={t('routes.createItem.descriptionField')} multiline rows={5} value={description} onChange={setDescription} />
       </DialogContent>
       <DialogContent>
         {state.error && <Typography color="error">{state.error.message}</Typography>}
