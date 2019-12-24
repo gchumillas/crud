@@ -14,6 +14,13 @@
       "usernameField": "Username",
       "passwordField": "Password"
     },
+    "home": {
+      "titleColumn": "Title",
+      "descriptionColumn": "Description",
+      "addItem": "Add new item",
+      "editItem": "EditItem",
+      "deleteItem": "Delete item"
+    },
     "createItem": {
       "title": "Create item",
       "titleField": "Title",

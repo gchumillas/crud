@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useAsyncRetry } from 'react-use'
 import { Switch, Route, match } from 'react-router-dom'
 import { History } from 'history'
@@ -22,6 +23,7 @@ type Props = {
 }
 
 export default ({ history, match }: Props) => {
+  const { t } = useTranslation()
   const { token } = React.useContext(appContext)
   const state = useAsyncRetry(() => readItems(token))
   const rows = _.get(state.value, 'items') || []
@@ -29,7 +31,6 @@ export default ({ history, match }: Props) => {
 
   // TODO: what happens on expiration session (401 erro)?
   // TODO: state.loading, state.error && state.value
-  // TODO: i18n
   return (
     <pageContext.Provider value={{ refresh: state.retry }}>
       <Paper>
@@ -37,11 +38,11 @@ export default ({ history, match }: Props) => {
           <TableHead>
             <TableRow>
               {/* TODO: columns should be marked as bold */}
-              <TableCell>Title</TableCell>
-              <TableCell>Description</TableCell>
+              <TableCell>{t('routes.home.titleColumn')}</TableCell>
+              <TableCell>{t('routes.home.descriptionColumn')}</TableCell>
               <TableCell align="right">
                 {/* TODO: replace literal by constant */}
-                <IconButton title="Add new item" onClick={() => history.push(`${path}/create-item`)}>
+                <IconButton title={t('routes.home.addItem')} onClick={() => history.push(`${path}/create-item`)}>
                   <AddIcon />
                 </IconButton>
               </TableCell>
@@ -55,10 +56,10 @@ export default ({ history, match }: Props) => {
                 </TableCell>
                 <TableCell>{row.description}</TableCell>
                 <TableCell align="right">
-                  <IconButton title="Edit item" onClick={() => history.push(`${path}/edit-item/${row.id}`)}>
+                  <IconButton title={t('routes.home.editItem')} onClick={() => history.push(`${path}/edit-item/${row.id}`)}>
                     <EditIcon />
                   </IconButton>
-                  <IconButton color="secondary" title="Delete item" onClick={() => history.push(`${path}/delete-item/${row.id}`)}>
+                  <IconButton title={t('routes.home.deleteItem')} onClick={() => history.push(`${path}/delete-item/${row.id}`)} color="secondary">
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
