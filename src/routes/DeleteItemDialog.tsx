@@ -21,7 +21,7 @@ export default () => {
   }, [params.id])
 
   return (
-    <Dialog open fullWidth maxWidth="sm">
+    <Dialog open fullWidth maxWidth="xs">
       <DialogTitle>{t('routes.deleteItem.title')}</DialogTitle>
       <DialogContent>
         <DialogContentText>
