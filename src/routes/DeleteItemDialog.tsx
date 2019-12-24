@@ -1,26 +1,23 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAsyncFn } from 'react-use'
-import { match, useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Typography } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
 import { deleteItem } from '../providers/item'
 
-type Props = {
-  match: match<{ id: string }>
-}
-
-export default ({ match }: Props) => {
+export default () => {
   const history = useHistory()
+  const params = useParams<{ id: string }>()
   const { t } = useTranslation()
   const { token } = React.useContext(appContext)
   const { refresh } = React.useContext(pageContext)
-  const { id } = match.params
+
   const [state, onSubmit] = useAsyncFn(async () => {
-    await deleteItem(token, id)
+    await deleteItem(token, params.id)
     refresh()
     history.push('/')
-  }, [id])
+  }, [params.id])
 
   return (
     <Dialog open fullWidth maxWidth="sm">
