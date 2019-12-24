@@ -5,7 +5,7 @@ type Props = Omit<TextFieldProps, 'onChange'> & {
   onChange: (value: string) => void
 }
 
-export default ({ fullWidth = true, multiline = true, rows = 5, onChange, ...rest }: Props) => (
+export default ({ fullWidth = true, rows = 5, onChange, ...rest }: Props) => (
   // @ts-ignore
-  <TextField fullWidth={fullWidth} multiline={multiline} rows={rows} onChange={v => onChange(v.target.value)} {...rest} />
+  <TextField fullWidth={fullWidth} multiline rows={rows} onChange={v => onChange(v.target.value)} {...rest} />
 )
