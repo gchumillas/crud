@@ -33,10 +33,9 @@ export default ({ match }: Props) => {
   return (
     <pageContext.Provider value={{ refresh: state.retry }}>
       <Paper>
-        <Table aria-label="simple table">
+        <Table>
           <TableHead>
             <TableRow>
-              {/* TODO: columns should be marked as bold */}
               <TableCell>{t('routes.home.titleColumn')}</TableCell>
               <TableCell>{t('routes.home.descriptionColumn')}</TableCell>
               <TableCell align="right">
