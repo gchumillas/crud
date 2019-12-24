@@ -18,7 +18,7 @@ import DeleteItemDialog from './DeleteItemDialog'
 
 type Props = {
   history: History,
-  match: match<{ path: string }>
+  match: match
 }
 
 export default ({ history, match }: Props) => {
@@ -36,6 +36,7 @@ export default ({ history, match }: Props) => {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
+              {/* TODO: columns should be marked as bold */}
               <TableCell>Title</TableCell>
               <TableCell>Description</TableCell>
               <TableCell align="right">
