@@ -8,11 +8,11 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
-import context from '../context'
+import { appContext } from '../context'
 
 export default () => {
   const { t } = useTranslation()
-  const { login } = React.useContext(context)
+  const { login } = React.useContext(appContext)
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [loginState, onLogin] = useAsyncFn(() => login(username, password), [username, password])

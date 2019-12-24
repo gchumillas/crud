@@ -4,7 +4,7 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch, Redirect, RouteProps } from 'react-router-dom'
 import { CssBaseline, Container } from '@material-ui/core'
-import context from './context'
+import { appContext } from './context'
 import { login as loginProvider } from './providers/user'
 import Header from './components/Header'
 import LoginDialog from './routes/LoginDialog'
@@ -46,7 +46,7 @@ const App = () => {
   }
 
   return (
-    <context.Provider value={{ token, login, logout }}>
+    <appContext.Provider value={{ token, login, logout }}>
       <CssBaseline />
       <Container disableGutters maxWidth="md">
         <Header />
@@ -66,7 +66,7 @@ const App = () => {
           </Switch>
         </BrowserRouter>
       </Container>
-    </context.Provider>
+    </appContext.Provider>
   )
 }
 

@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-import context from '../context'
+import { appContext } from '../context'
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 
 const Header = () => {
   const classes = useStyles()
-  const { logout } = React.useContext(context)
+  const { logout } = React.useContext(appContext)
   const { t } = useTranslation()
 
   return (

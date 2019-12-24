@@ -9,8 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
-import context from '../context'
-import { homeContext } from './HomePage'
+import { appContext, pageContext } from '../context'
 import { createItem } from '../providers/item'
 
 type Props = {
@@ -19,8 +18,8 @@ type Props = {
 
 export default ({ history }: Props) => {
   const { t } = useTranslation()
-  const { token } = React.useContext(context)
-  const { refresh } = React.useContext(homeContext)
+  const { token } = React.useContext(appContext)
+  const { refresh } = React.useContext(pageContext)
   const [title, setTitle] = React.useState('')
   const [description, setDescription] = React.useState('')
   const [state, onSubmit] = useAsyncFn(async () => {

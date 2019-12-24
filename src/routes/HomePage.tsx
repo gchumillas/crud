@@ -10,7 +10,7 @@ import {
   Delete as DeleteIcon
 } from '@material-ui/icons'
 import { Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from '@material-ui/core'
-import context from '../context'
+import { appContext, pageContext } from '../context'
 import NotFoundPage from './NotFoundDialog'
 import CreateItemDialog from './CreateItemDialog'
 import EditItemDialog from './EditItemDialog'
@@ -21,12 +21,8 @@ type Props = {
   match: match<{ path: string }>
 }
 
-export const homeContext = React.createContext({
-  refresh: () => {}
-})
-
 export default ({ history, match }: Props) => {
-  const { token } = React.useContext(context)
+  const { token } = React.useContext(appContext)
   const state = useAsyncRetry(() => getItems(token))
   const rows = _.get(state.value, 'items') || []
   const path = _.trimEnd(match.path, '/')
@@ -35,7 +31,7 @@ export default ({ history, match }: Props) => {
   // TODO: state.loading, state.error && state.value
   // TODO: i18n
   return (
-    <homeContext.Provider value={{ refresh: state.retry }}>
+    <pageContext.Provider value={{ refresh: state.retry }}>
       <Paper>
         <Table aria-label="simple table">
           <TableHead>
@@ -77,6 +73,6 @@ export default ({ history, match }: Props) => {
         <Route path={`${path}/delete-item/:id`} component={DeleteItemDialog} />
         <Route component={NotFoundPage} />
       </Switch>
-    </homeContext.Provider>
+    </pageContext.Provider>
   )
 }
