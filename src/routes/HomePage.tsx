@@ -48,7 +48,7 @@ export default ({ history, match }: Props) => {
           </TableHead>
           <TableBody>
             {rows.map(row => (
-              <TableRow key={row.title}>
+              <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
                   {row.title}
                 </TableCell>
