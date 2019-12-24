@@ -2,7 +2,7 @@ import React from 'react'
 import { useAsyncFn } from 'react-use'
 import { useTranslation } from 'react-i18next'
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@material-ui/core'
-import { appContext } from '~/context'
+import { appContext } from '../context'
 
 export default () => {
   const { t } = useTranslation()

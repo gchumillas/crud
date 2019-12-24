@@ -1,5 +1,5 @@
-import { http } from '~/lib/http'
-import { API_URL } from '~/env'
+import { http } from '../lib/http'
+import { API_URL } from '../env'
 
 // TODO: rename by readItems (so we have CRUD functions)
 export const getItems = async (token: string): Promise<{
