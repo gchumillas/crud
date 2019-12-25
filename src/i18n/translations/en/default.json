@@ -1,5 +1,12 @@
 {
   "appTitle": "CRUD application",
+  "http": {
+    "666": "Network error",
+    "401": "Unauthorized",
+    "403": "Forbidden",
+    "404": "Not found",
+    "405": "Method not allowed"
+  },
   "header": {
     "confirmDialogTitle": "Logout",
     "confirmDialogText": "Are you sure you want to exit the application?"
@@ -16,7 +23,10 @@
     "login": {
       "title": "Login",
       "usernameField": "Username",
-      "passwordField": "Password"
+      "passwordField": "Password",
+      "http": {
+        "403": "Invalid username or password"
+      }
     },
     "home": {
       "titleColumn": "Title",
