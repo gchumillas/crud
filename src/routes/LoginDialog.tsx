@@ -1,12 +1,13 @@
 import React from 'react'
 import { useAsyncFn } from 'react-use'
 import { useTranslation } from 'react-i18next'
-import { DialogTitle, DialogContent, DialogActions, DialogContentText } from '@material-ui/core'
+import { DialogTitle, DialogContent, DialogActions } from '@material-ui/core'
 import { appContext } from '../lib/context'
-import { getStatus, translateStatus } from '../lib/http'
+import { getStatus } from '../lib/http'
 import SubmitButton from '../components/buttons/SubmitButton'
 import TextField from '../components/fields/TextField'
 import Dialog from '../components/Dialog'
+import HttpError from '../components/HttpError'
 
 export default () => {
   const { t } = useTranslation()
@@ -26,11 +27,7 @@ export default () => {
         <TextField autoFocus autoComplete="username" label={t('routes.login.usernameField')} value={username} onChange={setUsername} />
         <TextField autoComplete="password" type="password" label={t('routes.login.passwordField')} value={password} onChange={setPassword} />
       </DialogContent>
-      {status && (
-        <DialogContent>
-          <DialogContentText color="error">{translateStatus(t, 'routes.login', status)}</DialogContentText>
-        </DialogContent>
-      )}
+      {status && <HttpError path="routes.login" status={status} />}
       <DialogActions>
         <SubmitButton disabled={state.loading} onClick={submit}>{t('buttons.continue')}</SubmitButton>
       </DialogActions>
