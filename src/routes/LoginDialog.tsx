@@ -28,7 +28,6 @@ export default () => {
     <Dialog open fullWidth maxWidth="xs" onKeyDown={e => e.key === 'Enter' && submit()}>
       <DialogTitle>{t('routes.login.title')}</DialogTitle>
       <DialogContent>
-        {/* TODO: add a 'remember username' checkbox */}
         <SelectField label={t('routes.login.language')} value={language} options={languages} onChange={onLanguageChange} />
         <TextField autoFocus autoComplete="username" label={t('routes.login.usernameField')} value={username} onChange={setUsername} />
         <TextField autoComplete="password" type="password" label={t('routes.login.passwordField')} value={password} onChange={setPassword} />
