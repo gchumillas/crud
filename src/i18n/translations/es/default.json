@@ -1,0 +1,55 @@
+{
+  "appTitle": "CRUD",
+  "http": {
+    "666": "Error de red.",
+    "400": "Petición incorrecta.",
+    "401": "No está autorizado.",
+    "403": "Acción no permitida.",
+    "404": "Recurso no encontrado.",
+    "405": "Ḿétodo no permitido."
+  },
+  "header": {
+    "confirmDialogTitle": "Salir del sistema",
+    "confirmDialogText": "¿Está seguro que desea salir del sistema?"
+  },
+  "buttons": {
+    "cancel": "Cancelar",
+    "continue": "Continuar"
+  },
+  "routes": {
+    "notFound": {
+      "title": "Página no encontrada",
+      "text": "No se encontró la página solicitada."
+    },
+    "login": {
+      "title": "Entrar en el sistema",
+      "languageField": "Lenguaje",
+      "usernameField": "Nombre de usuario",
+      "passwordField": "Contraseña",
+      "english": "English",
+      "spanish": "Español",
+      "invalidCredentials": "El usuario o la constraseña son incorrectos."
+    },
+    "home": {
+      "titleColumn": "Título",
+      "descriptionColumn": "Descripción",
+      "addItem": "Añadir nuevo registro",
+      "editItem": "Editar registro",
+      "deleteItem": "Borrar registro"
+    },
+    "createItem": {
+      "title": "Crear nuevo registro",
+      "titleField": "Título",
+      "descriptionField": "Descripción"
+    },
+    "deleteItem": {
+      "title": "Borrar registro",
+      "confirmText": "Esta operación no puede deshacerse."
+    },
+    "editItem": {
+      "title": "Editar registro",
+      "titleField": "Título",
+      "descriptionField": "Descripción"
+    }
+  }
+}

@@ -1,4 +1,4 @@
 import en from './en'
+import es from './es'
 
-// TODO: include spanish translations
-export default { en }
+export default { en, es }

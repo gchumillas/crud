@@ -1,5 +1,5 @@
 {
-  "appTitle": "CRUD application",
+  "appTitle": "CRUD",
   "http": {
     "666": "Network error.",
     "400": "Bad request.",
@@ -23,15 +23,18 @@
     },
     "login": {
       "title": "Login",
+      "languageField": "Language",
       "usernameField": "Username",
       "passwordField": "Password",
+      "english": "English",
+      "spanish": "Español",
       "invalidCredentials": "Invalid username or password."
     },
     "home": {
       "titleColumn": "Title",
       "descriptionColumn": "Description",
       "addItem": "Add new item",
-      "editItem": "EditItem",
+      "editItem": "Edit item",
       "deleteItem": "Delete item"
     },
     "createItem": {
