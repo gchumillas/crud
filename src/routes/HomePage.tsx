@@ -28,7 +28,6 @@ export default ({ match }: Props) => {
   const state = useAsyncRetry(() => readItems(token))
   const status = state.error && getErrorStatus(state.error)
   const rows = _.get(state.value, 'items') || []
-  const path = _.trimEnd(match.path, '/')
 
   if (status === HTTP_UNAUTHORIZED) {
     logout()
@@ -44,8 +43,7 @@ export default ({ match }: Props) => {
               <TableCell>{t('routes.home.titleColumn')}</TableCell>
               <TableCell>{t('routes.home.descriptionColumn')}</TableCell>
               <TableCell align="right">
-                {/* TODO: replace literal by constant */}
-                <IconButton title={t('routes.home.addItem')} onClick={() => history.push(`${path}/create-item`)}>
+                <IconButton title={t('routes.home.addItem')} onClick={() => history.push('/create-item')}>
                   <AddIcon />
                 </IconButton>
               </TableCell>
@@ -59,10 +57,10 @@ export default ({ match }: Props) => {
                 </TableCell>
                 <TableCell>{row.description}</TableCell>
                 <TableCell align="right">
-                  <IconButton title={t('routes.home.editItem')} onClick={() => history.push(`${path}/edit-item/${row.id}`)}>
+                  <IconButton title={t('routes.home.editItem')} onClick={() => history.push(`/edit-item/${row.id}`)}>
                     <EditIcon />
                   </IconButton>
-                  <IconButton title={t('routes.home.deleteItem')} onClick={() => history.push(`${path}/delete-item/${row.id}`)} color="secondary">
+                  <IconButton title={t('routes.home.deleteItem')} onClick={() => history.push(`/delete-item/${row.id}`)} color="secondary">
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
@@ -73,10 +71,10 @@ export default ({ match }: Props) => {
       </Paper>
       <Snackbar open={!!status} message={t(`http.${status}`)} />
       <Switch>
-        <Route exact path={`${path}/`} />
-        <Route path={`${path}/create-item`} component={CreateItemDialog} />
-        <Route path={`${path}/edit-item/:id`} component={EditItemDialog} />
-        <Route path={`${path}/delete-item/:id`} component={DeleteItemDialog} />
+        <Route exact path={'/'} />
+        <Route path={'/create-item'} component={CreateItemDialog} />
+        <Route path={'/edit-item/:id'} component={EditItemDialog} />
+        <Route path={'/delete-item/:id'} component={DeleteItemDialog} />
         <Route component={NotFoundPage} />
       </Switch>
     </pageContext.Provider>
