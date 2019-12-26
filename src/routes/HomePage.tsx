@@ -9,8 +9,9 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon
 } from '@material-ui/icons'
-import { Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from '@material-ui/core'
+import { Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Snackbar } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
+import { getErrorStatus } from '../lib/http'
 import NotFoundPage from './NotFoundDialog'
 import CreateItemDialog from './CreateItemDialog'
 import EditItemDialog from './EditItemDialog'
@@ -25,12 +26,12 @@ export default ({ match }: Props) => {
   const { t } = useTranslation()
   const { token } = React.useContext(appContext)
   const state = useAsyncRetry(() => readItems(token))
+  const status = state.error && getErrorStatus(state.error)
   const rows = _.get(state.value, 'items') || []
   const path = _.trimEnd(match.path, '/')
 
   // TODO: what happens on expiration session (401 error)?
   // TODO: state.loading, state.error && state.value
-  // TODO: manage errors
   return (
     <pageContext.Provider value={{ refresh: state.retry }}>
       <Paper>
@@ -67,6 +68,7 @@ export default ({ match }: Props) => {
           </TableBody>
         </Table>
       </Paper>
+      <Snackbar open={!!status} message={t(`http.${status}`)} />
       <Switch>
         <Route exact path={`${path}/`} />
         <Route path={`${path}/create-item`} component={CreateItemDialog} />
