@@ -31,7 +31,6 @@ export default ({ match }: Props) => {
   const path = _.trimEnd(match.path, '/')
 
   // TODO: what happens on expiration session (401 error)?
-  // TODO: state.loading
   return (
     <pageContext.Provider value={{ refresh: state.retry }}>
       <Paper>
