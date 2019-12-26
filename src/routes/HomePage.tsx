@@ -30,6 +30,7 @@ export default ({ match }: Props) => {
 
   // TODO: what happens on expiration session (401 error)?
   // TODO: state.loading, state.error && state.value
+  // TODO: manage errors
   return (
     <pageContext.Provider value={{ refresh: state.retry }}>
       <Paper>
