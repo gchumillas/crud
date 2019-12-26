@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAsyncFn } from 'react-use'
 import { useTranslation } from 'react-i18next'
-import { DialogTitle, DialogContent, DialogActions, DialogContentText, Typography } from '@material-ui/core'
+import { DialogTitle, DialogContent, DialogActions, DialogContentText } from '@material-ui/core'
 import { appContext } from '../lib/context'
 import { getErrorStatus } from '../lib/http'
 import SubmitButton from '../components/buttons/SubmitButton'
