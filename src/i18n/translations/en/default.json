@@ -24,9 +24,7 @@
       "title": "Login",
       "usernameField": "Username",
       "passwordField": "Password",
-      "http": {
-        "403": "Invalid username or password"
-      }
+      "invalidCredentials": "Invalid username or password."
     },
     "home": {
       "titleColumn": "Title",
