@@ -3,7 +3,7 @@ import { useAsyncFn } from 'react-use'
 import { useTranslation } from 'react-i18next'
 import { DialogTitle, DialogContent, DialogActions, DialogContentText, Typography } from '@material-ui/core'
 import { appContext } from '../lib/context'
-import { getStatus } from '../lib/http'
+import { getErrorStatus } from '../lib/http'
 import SubmitButton from '../components/buttons/SubmitButton'
 import TextField from '../components/fields/TextField'
 import Dialog from '../components/Dialog'
@@ -14,7 +14,7 @@ export default () => {
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [state, submit] = useAsyncFn(() => login(username, password), [username, password])
-  const status = state.error && getStatus(state.error)
+  const status = state.error && getErrorStatus(state.error)
 
   return (
     <Dialog onKeyDown={e => e.key === 'Enter' && submit()}>

@@ -14,7 +14,7 @@ export const http = (token: string) => {
   })
 }
 
-export const getStatus = (error: Error): number => {
+export const getErrorStatus = (error: Error): number => {
   const response = _.get(error, 'response')
 
   return _.get(response, 'status', HTTP_UNKNOWN)
