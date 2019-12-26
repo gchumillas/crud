@@ -11,7 +11,7 @@ import {
 } from '@material-ui/icons'
 import { Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Snackbar, LinearProgress } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
-import { getErrorStatus } from '../lib/http'
+import { HTTP_UNAUTHORIZED, getErrorStatus } from '../lib/http'
 import NotFoundPage from './NotFoundDialog'
 import CreateItemDialog from './CreateItemDialog'
 import EditItemDialog from './EditItemDialog'
@@ -24,13 +24,16 @@ type Props = {
 export default ({ match }: Props) => {
   const history = useHistory()
   const { t } = useTranslation()
-  const { token } = React.useContext(appContext)
+  const { token, logout } = React.useContext(appContext)
   const state = useAsyncRetry(() => readItems(token))
   const status = state.error && getErrorStatus(state.error)
   const rows = _.get(state.value, 'items') || []
   const path = _.trimEnd(match.path, '/')
 
-  // TODO: what happens on expiration session (401 error)?
+  if (status === HTTP_UNAUTHORIZED) {
+    logout()
+  }
+
   return (
     <pageContext.Provider value={{ refresh: state.retry }}>
       <Paper>

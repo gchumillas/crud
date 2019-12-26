@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
-import { getErrorStatus } from '../lib/http'
+import { HTTP_UNAUTHORIZED, getErrorStatus } from '../lib/http'
 import { createItem } from '../providers/item'
 import SubmitButton from '../components/buttons/SubmitButton'
 import TextField from '../components/fields/TextField'
@@ -13,7 +13,7 @@ import TextArea from '../components/fields/TextArea'
 export default () => {
   const history = useHistory()
   const { t } = useTranslation()
-  const { token } = React.useContext(appContext)
+  const { token, logout } = React.useContext(appContext)
   const { refresh } = React.useContext(pageContext)
   const [title, setTitle] = React.useState('')
   const [description, setDescription] = React.useState('')
@@ -23,6 +23,10 @@ export default () => {
     history.push('/')
   }, [title, description])
   const status = state.error && getErrorStatus(state.error)
+
+  if (status === HTTP_UNAUTHORIZED) {
+    logout()
+  }
 
   return (
     <Dialog open fullWidth maxWidth="sm">
