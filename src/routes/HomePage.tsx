@@ -9,7 +9,7 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon
 } from '@material-ui/icons'
-import { Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Snackbar } from '@material-ui/core'
+import { Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Snackbar, LinearProgress } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
 import { getErrorStatus } from '../lib/http'
 import NotFoundPage from './NotFoundDialog'
@@ -35,6 +35,7 @@ export default ({ match }: Props) => {
   return (
     <pageContext.Provider value={{ refresh: state.retry }}>
       <Paper>
+        <LinearProgress hidden={!state.loading} />
         <Table>
           <TableHead>
             <TableRow>
