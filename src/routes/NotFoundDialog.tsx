@@ -9,7 +9,7 @@ export default () => {
   const { t } = useTranslation()
 
   return (
-    <Dialog open>
+    <Dialog open fullWidth maxWidth="xs">
       <DialogTitle>{t('routes.notFound.title')}</DialogTitle>
       <DialogContent>
         <DialogContentText>

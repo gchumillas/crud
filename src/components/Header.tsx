@@ -43,7 +43,7 @@ const Header = () => {
         </IconButton>
       </Toolbar>
       {/* CONFIRM DIALOG */}
-      <Dialog open={confirmDialogOpen}>
+      <Dialog open={confirmDialogOpen} fullWidth maxWidth="xs">
         <DialogTitle>{t('header.confirmDialogTitle')}</DialogTitle>
         <DialogContent>
           <DialogContentText>

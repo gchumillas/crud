@@ -25,7 +25,7 @@ export default () => {
   const status = state.error && getErrorStatus(state.error)
 
   return (
-    <Dialog open>
+    <Dialog open fullWidth maxWidth="sm">
       <DialogTitle>{t('routes.createItem.title')}</DialogTitle>
       <DialogContent>
         <TextField autoFocus required label={t('routes.createItem.titleField')} value={title} onChange={setTitle} />

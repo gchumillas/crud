@@ -24,7 +24,6 @@ export default () => {
     setLanguage(value)
   }
 
-  // TODO: (all) add fullWidth and maxWidth to Dialog
   return (
     <Dialog open fullWidth maxWidth="xs" onKeyDown={e => e.key === 'Enter' && submit()}>
       <DialogTitle>{t('routes.login.title')}</DialogTitle>

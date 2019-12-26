@@ -22,7 +22,7 @@ export default () => {
   const status = state.error && getErrorStatus(state.error)
 
   return (
-    <Dialog open>
+    <Dialog open fullWidth maxWidth="xs">
       <DialogTitle>{t('routes.deleteItem.title')}</DialogTitle>
       <DialogContent>
         <DialogContentText>
