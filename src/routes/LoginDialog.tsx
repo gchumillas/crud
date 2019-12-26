@@ -1,13 +1,12 @@
 import React from 'react'
 import { useAsyncFn } from 'react-use'
 import { useTranslation } from 'react-i18next'
-import { DialogTitle, DialogContent, DialogActions } from '@material-ui/core'
+import { DialogTitle, DialogContent, DialogActions, DialogContentText, Typography } from '@material-ui/core'
 import { appContext } from '../lib/context'
 import { getStatus } from '../lib/http'
 import SubmitButton from '../components/buttons/SubmitButton'
 import TextField from '../components/fields/TextField'
 import Dialog from '../components/Dialog'
-import HttpError from '../components/HttpError'
 
 export default () => {
   const { t } = useTranslation()
@@ -17,7 +16,6 @@ export default () => {
   const [state, submit] = useAsyncFn(() => login(username, password), [username, password])
   const status = state.error && getStatus(state.error)
 
-  // TODO: notify http errors
   return (
     <Dialog onKeyDown={e => e.key === 'Enter' && submit()}>
       <DialogTitle>{t('routes.login.title')}</DialogTitle>
@@ -26,8 +24,19 @@ export default () => {
         {/* TODO: add a 'remember username' checkbox */}
         <TextField autoFocus autoComplete="username" label={t('routes.login.usernameField')} value={username} onChange={setUsername} />
         <TextField autoComplete="password" type="password" label={t('routes.login.passwordField')} value={password} onChange={setPassword} />
+        {status && (
+          <Typography color="error" paragraph>
+            {status === 403 ? t('routes.login.invalidCredentials') : t(`http.${status}`)}
+          </Typography>
+        )}
       </DialogContent>
-      {status && <HttpError path="routes.login" status={status} />}
+      {status && (
+        <DialogContent>
+          <DialogContentText color="error">
+            {status === 403 ? t('routes.login.invalidCredentials') : t(`http.${status}`)}
+          </DialogContentText>
+        </DialogContent>
+      )}
       <DialogActions>
         <SubmitButton disabled={state.loading} onClick={submit}>{t('buttons.continue')}</SubmitButton>
       </DialogActions>
