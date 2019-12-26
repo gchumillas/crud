@@ -1,12 +1,11 @@
 import React from 'react'
 import { useAsyncFn } from 'react-use'
 import { useTranslation } from 'react-i18next'
-import { DialogTitle, DialogContent, DialogActions, DialogContentText } from '@material-ui/core'
+import { Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from '@material-ui/core'
 import { appContext } from '../lib/context'
 import { getErrorStatus } from '../lib/http'
 import SubmitButton from '../components/buttons/SubmitButton'
 import TextField from '../components/fields/TextField'
-import CustomDialog from '../components/Dialog'
 
 export default () => {
   const { t } = useTranslation()
@@ -17,7 +16,7 @@ export default () => {
   const status = state.error && getErrorStatus(state.error)
 
   return (
-    <CustomDialog onKeyDown={e => e.key === 'Enter' && submit()}>
+    <Dialog open onKeyDown={e => e.key === 'Enter' && submit()}>
       <DialogTitle>{t('routes.login.title')}</DialogTitle>
       <DialogContent>
         {/* TODO: add a select field to change the language */}
@@ -35,6 +34,6 @@ export default () => {
       <DialogActions>
         <SubmitButton disabled={state.loading} onClick={submit}>{t('buttons.continue')}</SubmitButton>
       </DialogActions>
-    </CustomDialog>
+    </Dialog>
   )
 }

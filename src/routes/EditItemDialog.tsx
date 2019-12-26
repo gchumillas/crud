@@ -2,13 +2,12 @@ import React from 'react'
 import { useAsyncFn, useAsync } from 'react-use'
 import { useTranslation } from 'react-i18next'
 import { useHistory, useParams } from 'react-router-dom'
-import { Button, DialogTitle, DialogContent, DialogActions, Typography } from '@material-ui/core'
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Typography } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
 import { readItem, updateItem } from '../providers/item'
 import SubmitButton from '../components/buttons/SubmitButton'
 import TextField from '../components/fields/TextField'
 import TextArea from '../components/fields/TextArea'
-import Dialog from '../components/Dialog'
 
 export default () => {
   const history = useHistory()
@@ -36,7 +35,7 @@ export default () => {
   const error = initState.error || submitState.error
 
   return (
-    <Dialog>
+    <Dialog open>
       <DialogTitle>{t('routes.editItem.title')}</DialogTitle>
       <DialogContent>
         <TextField autoFocus required label={t('routes.editItem.titleField')} value={title} onChange={setTitle} />
