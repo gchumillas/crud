@@ -26,8 +26,8 @@
       "languageField": "Lenguaje",
       "usernameField": "Nombre de usuario",
       "passwordField": "Contraseña",
-      "english": "English",
-      "spanish": "Español",
+      "en": "English",
+      "es": "Español",
       "invalidCredentials": "El usuario o la constraseña son incorrectos."
     },
     "home": {

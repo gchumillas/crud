@@ -26,8 +26,8 @@
       "languageField": "Language",
       "usernameField": "Username",
       "passwordField": "Password",
-      "english": "English",
-      "spanish": "Español",
+      "en": "English",
+      "es": "Español",
       "invalidCredentials": "Invalid username or password."
     },
     "home": {
