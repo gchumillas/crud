@@ -2,7 +2,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAsyncFn } from 'react-use'
 import { useHistory, useParams } from 'react-router-dom'
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Typography } from '@material-ui/core'
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
+import { getErrorStatus } from '../lib/http'
 import { appContext, pageContext } from '../lib/context'
 import { deleteItem } from '../providers/item'
 import SubmitButton from '../components/buttons/SubmitButton'
@@ -13,12 +14,12 @@ export default () => {
   const { t } = useTranslation()
   const { token } = React.useContext(appContext)
   const { refresh } = React.useContext(pageContext)
-
   const [state, onSubmit] = useAsyncFn(async () => {
     await deleteItem(token, params.id)
     refresh()
     history.push('/')
   }, [params.id])
+  const status = state.error && getErrorStatus(state.error)
 
   return (
     <Dialog open>
@@ -28,9 +29,11 @@ export default () => {
           {t('routes.deleteItem.confirmText')}
         </DialogContentText>
       </DialogContent>
-      <DialogContent>
-        {state.error && <Typography color="error">{state.error.message}</Typography>}
-      </DialogContent>
+      {status && (
+        <DialogContent>
+          <DialogContentText color="error">{t(`http.${status}`)}</DialogContentText>
+        </DialogContent>
+      )}
       <DialogActions>
         <Button disabled={state.loading} onClick={() => history.push('/')}>{t('buttons.cancel')}</Button>
         <SubmitButton disabled={state.loading} onClick={onSubmit}>{t('buttons.continue')}</SubmitButton>
