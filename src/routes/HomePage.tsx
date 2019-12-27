@@ -33,6 +33,8 @@ export default ({ match }: Props) => {
     logout()
   }
 
+  // TODO: add paginator
+  // TODO: sort by columns (title)
   return (
     <pageContext.Provider value={{ refresh: state.retry }}>
       <Paper>
