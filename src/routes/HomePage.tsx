@@ -9,7 +9,7 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon
 } from '@material-ui/icons'
-import { Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Snackbar, LinearProgress } from '@material-ui/core'
+import { Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Snackbar, LinearProgress, TablePagination } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
 import { HTTP_UNAUTHORIZED, getErrorStatus } from '../lib/http'
 import NotFoundPage from './NotFoundDialog'
@@ -25,9 +25,12 @@ export default ({ match }: Props) => {
   const history = useHistory()
   const { t } = useTranslation()
   const { token, logout } = React.useContext(appContext)
-  const state = useAsyncRetry(() => readItems(token))
+  const [page, setPage] = React.useState(0)
+  const state = useAsyncRetry(() => readItems(token, page), [page])
   const status = state.error && getErrorStatus(state.error)
   const rows = _.get(state.value, 'items') || []
+  const numRows = _.get(state.value, 'numRows') || 0
+  const rowsPerPage = _.get(state.value, 'rowsPerPage') || 0
 
   if (status === HTTP_UNAUTHORIZED) {
     logout()
@@ -70,6 +73,14 @@ export default ({ match }: Props) => {
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+          component="div"
+          rowsPerPageOptions={[rowsPerPage]}
+          count={numRows}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={(_, page) => setPage(page)}
+        />
       </Paper>
       <Snackbar open={!!status} message={t(`http.${status}`)} />
       <Switch>
