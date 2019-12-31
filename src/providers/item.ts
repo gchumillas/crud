@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { http } from '../lib/http'
 import { API_URL } from '../lib/env'
 
@@ -7,12 +8,28 @@ export type Item = {
   description: string
 }
 
-export const readItems = async (token: string, page: number): Promise<{
+export const readItems = async (token: string, params?: {
+  page?: number,
+  sort?: {
+    column: string,
+    direction?: string
+  }
+}): Promise<{
+  sortColumn: string,
+  sortDirection: string,
   rowsPerPage: number,
   numRows: number,
   items: Item[]
 }> => {
-  const url = [API_URL, `/items?page=${page}`].join('')
+  const query = _.map(params, (value, key) => {
+    const val = key === 'sort'
+      ? [_.get(value, 'column'), _.get(value, 'direction')].join()
+      : value
+
+    return [key, val].join('=')
+  }).join('&')
+
+  const url = [API_URL, ['/items', query].join('?')].join('')
   const res = await http(token).get(url)
 
   return res.data

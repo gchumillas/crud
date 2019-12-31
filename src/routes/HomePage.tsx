@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { SyntheticEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAsyncRetry } from 'react-use'
 import { Switch, Route, match, useHistory } from 'react-router-dom'
@@ -6,12 +6,14 @@ import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import { Item, readItems } from '../providers/item'
 import {
+  KeyboardArrowDown as DescIcon,
+  KeyboardArrowUp as AscIcon,
   Add as AddIcon,
   Edit as EditIcon,
   Delete as DeleteIcon
 } from '@material-ui/icons'
 import {
-  Paper, IconButton, Snackbar, LinearProgress,
+  Paper, IconButton, Snackbar, LinearProgress, Link,
   Table, TableHead, TableRow, TableCell, TableBody, TablePagination,
 } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
@@ -30,7 +32,13 @@ const useStyles = makeStyles(() => ({
     visibility: 'hidden'
   },
   firstColumn: {
-    width: 1
+    width: 1,
+    whiteSpace: 'nowrap'
+  },
+  link: {
+    display: 'inline-flex',
+    verticalAlign: 'middle',
+    alignItems: 'center'
   }
 }))
 
@@ -40,16 +48,34 @@ export default ({ match }: Props) => {
   const { t } = useTranslation()
   const { token, logout } = React.useContext(appContext)
   const [page, setPage] = React.useState(0)
-  const [rows, setRows] = React.useState<Item[]>([])
-  const [numRows, setNumRows] = React.useState(0)
+  const [sort, setSort] = React.useState<[string, string]>(['id', 'desc'])
   const [rowsPerPage, setRowsPerPage] = React.useState(0)
-  const state = useAsyncRetry(async () => {
-    const doc = await readItems(token, page)
+  const [numRows, setNumRows] = React.useState(0)
+  const [rows, setRows] = React.useState<Item[]>([])
 
+  const state = useAsyncRetry(async () => {
+    const doc = await readItems(token, {
+      page,
+      sort: {
+        column: sort[0],
+        direction: sort[1]
+      }
+    })
+
+    setSort([doc.sortColumn, doc.sortDirection])
     setRowsPerPage(doc.rowsPerPage)
     setNumRows(doc.numRows)
     setRows(doc.items)
-  }, [page, setRows])
+  }, [page, sort[0], sort[1]])
+
+  const onColumnClick = (colName: string, defaultSortDirection: string) => (e: SyntheticEvent) => {
+    const colDir = sort[0] === colName ? (sort[1] === 'asc' ? 'desc' : 'asc') : defaultSortDirection
+
+    setSort([colName, colDir])
+    setPage(0)
+    e.preventDefault()
+  }
+
   const status = state.error && getErrorStatus(state.error)
 
   if (status === HTTP_UNAUTHORIZED) {
@@ -64,8 +90,18 @@ export default ({ match }: Props) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align="right" className={classes.firstColumn}>{t('routes.home.idColumn')}</TableCell>
-              <TableCell>{t('routes.home.titleColumn')}</TableCell>
+              <TableCell align="right" className={classes.firstColumn}>
+                <Link href="#" className={classes.link} onClick={onColumnClick('id', 'desc')}>
+                  <span>{t('routes.home.idColumn')}</span>
+                  {sort[0] === 'id' && (sort[1] === 'desc' ? <DescIcon /> : <AscIcon />)}
+                </Link>
+              </TableCell>
+              <TableCell>
+                <Link href="#" className={classes.link} onClick={onColumnClick('title', 'asc')}>
+                  <span>{t('routes.home.titleColumn')}</span>
+                  {sort[0] === 'title' && (sort[1] === 'desc' ? <DescIcon /> : <AscIcon />)}
+                </Link>
+              </TableCell>
               <TableCell>{t('routes.home.descriptionColumn')}</TableCell>
               <TableCell align="right">
                 <IconButton title={t('routes.home.addItem')} onClick={() => history.push('/create-item')}>
