@@ -54,7 +54,7 @@ export default ({ match }: Props) => {
   return (
     <pageContext.Provider value={{ refresh: state.retry }}>
       <Paper>
-        <LinearProgress className={clsx({ [classes.hidden]: !state.loading })} />
+        <LinearProgress color="secondary" className={clsx({ [classes.hidden]: !state.loading })} />
         <Table>
           <TableHead>
             <TableRow>
