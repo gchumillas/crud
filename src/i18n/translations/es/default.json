@@ -31,6 +31,7 @@
       "invalidCredentials": "El usuario o la constraseña son incorrectos."
     },
     "home": {
+      "idColumn": "ID",
       "titleColumn": "Título",
       "descriptionColumn": "Descripción",
       "addItem": "Añadir nuevo registro",

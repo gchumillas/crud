@@ -10,7 +10,10 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon
 } from '@material-ui/icons'
-import { Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Snackbar, LinearProgress, TablePagination } from '@material-ui/core'
+import {
+  Paper, IconButton, Snackbar, LinearProgress,
+  Table, TableHead, TableRow, TableCell, TableBody, TablePagination,
+} from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
 import { HTTP_UNAUTHORIZED, getErrorStatus } from '../lib/http'
 import NotFoundPage from './NotFoundDialog'
@@ -25,6 +28,9 @@ type Props = {
 const useStyles = makeStyles(() => ({
   hidden: {
     visibility: 'hidden'
+  },
+  firstColumn: {
+    width: 1
   }
 }))
 
@@ -58,6 +64,7 @@ export default ({ match }: Props) => {
         <Table>
           <TableHead>
             <TableRow>
+              <TableCell align="right" className={classes.firstColumn}>{t('routes.home.idColumn')}</TableCell>
               <TableCell>{t('routes.home.titleColumn')}</TableCell>
               <TableCell>{t('routes.home.descriptionColumn')}</TableCell>
               <TableCell align="right">
@@ -70,7 +77,10 @@ export default ({ match }: Props) => {
           <TableBody>
             {rows.map(row => (
               <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
+                <TableCell align="right">
+                  #{row.id}
+                </TableCell>
+                <TableCell>
                   {row.title}
                 </TableCell>
                 <TableCell>{row.description}</TableCell>
