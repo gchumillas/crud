@@ -2,6 +2,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAsyncRetry } from 'react-use'
 import { Switch, Route, match, useHistory } from 'react-router-dom'
+import clsx from 'clsx'
+import { makeStyles } from '@material-ui/core/styles'
 import { Item, readItems } from '../providers/item'
 import {
   Add as AddIcon,
@@ -20,7 +22,14 @@ type Props = {
   match: match
 }
 
+const useStyles = makeStyles(() => ({
+  hidden: {
+    visibility: 'hidden'
+  }
+}))
+
 export default ({ match }: Props) => {
+  const classes = useStyles()
   const history = useHistory()
   const { t } = useTranslation()
   const { token, logout } = React.useContext(appContext)
@@ -41,12 +50,11 @@ export default ({ match }: Props) => {
     logout()
   }
 
-  // TODO: add paginator
   // TODO: sort by columns (title)
   return (
     <pageContext.Provider value={{ refresh: state.retry }}>
       <Paper>
-        <LinearProgress hidden={!state.loading} />
+        <LinearProgress className={clsx({ [classes.hidden]: !state.loading })} />
         <Table>
           <TableHead>
             <TableRow>
