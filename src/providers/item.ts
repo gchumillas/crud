@@ -1,14 +1,16 @@
 import { http } from '../lib/http'
 import { API_URL } from '../lib/env'
 
+export type Item = {
+  id: string,
+  title: string,
+  description: string
+}
+
 export const readItems = async (token: string, page: number): Promise<{
   rowsPerPage: number,
   numRows: number,
-  items: Array<{
-    id: string,
-    title: string,
-    description: string
-  }>
+  items: Item[]
 }> => {
   const url = [API_URL, `/items?page=${page}`].join('')
   const res = await http(token).get(url)

@@ -1,9 +1,8 @@
-import _ from 'lodash'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAsyncRetry } from 'react-use'
 import { Switch, Route, match, useHistory } from 'react-router-dom'
-import { readItems } from '../providers/item'
+import { Item, readItems } from '../providers/item'
 import {
   Add as AddIcon,
   Edit as EditIcon,
@@ -26,11 +25,17 @@ export default ({ match }: Props) => {
   const { t } = useTranslation()
   const { token, logout } = React.useContext(appContext)
   const [page, setPage] = React.useState(0)
-  const state = useAsyncRetry(() => readItems(token, page), [page])
+  const [rows, setRows] = React.useState<Item[]>([])
+  const [numRows, setNumRows] = React.useState(0)
+  const [rowsPerPage, setRowsPerPage] = React.useState(0)
+  const state = useAsyncRetry(async () => {
+    const doc = await readItems(token, page)
+
+    setRowsPerPage(doc.rowsPerPage)
+    setNumRows(doc.numRows)
+    setRows(doc.items)
+  }, [page, setRows])
   const status = state.error && getErrorStatus(state.error)
-  const rows = _.get(state.value, 'items') || []
-  const numRows = _.get(state.value, 'numRows') || 0
-  const rowsPerPage = _.get(state.value, 'rowsPerPage') || 0
 
   if (status === HTTP_UNAUTHORIZED) {
     logout()
