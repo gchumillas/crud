@@ -70,7 +70,7 @@ export default ({ match }: Props) => {
 
   const onColumnClick = (colName: string, defaultSortDirection: string) => (e: SyntheticEvent) => {
     const [ col, dir ] = sort
-    const colDir = col === colName ? (['asc', ''].includes(dir) ? 'desc' : 'asc') : defaultSortDirection
+    const colDir = col === colName ? (dir === 'desc' ? '' : 'desc') : defaultSortDirection
 
     setSort([colName, colDir])
     setPage(0)
