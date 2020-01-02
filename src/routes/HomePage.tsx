@@ -48,31 +48,24 @@ export default ({ match }: Props) => {
   const { t } = useTranslation()
   const { token, logout } = React.useContext(appContext)
   const [page, setPage] = React.useState(0)
-  const [sort, setSort] = React.useState<[string, string]>(['id', 'desc'])
+  const [sort, setSort] = React.useState<{ column: string, direction: string }>({ column: 'id', direction: 'desc' })
   const [rowsPerPage, setRowsPerPage] = React.useState(0)
   const [numRows, setNumRows] = React.useState(0)
   const [rows, setRows] = React.useState<Item[]>([])
 
   const state = useAsyncRetry(async () => {
-    const doc = await readItems(token, {
-      page,
-      sort: {
-        column: sort[0],
-        direction: sort[1]
-      }
-    })
+    const doc = await readItems(token, { page, sort })
 
-    setSort([doc.sortColumn, doc.sortDirection])
+    setSort({ column: doc.sortColumn, direction: doc.sortDirection })
     setRowsPerPage(doc.rowsPerPage)
     setNumRows(doc.numRows)
     setRows(doc.items)
-  }, [page, sort[0], sort[1]])
+  }, [page, sort.column, sort.direction])
 
-  const onColumnClick = (colName: string, defaultSortDirection: string) => (e: SyntheticEvent) => {
-    const [ col, dir ] = sort
-    const colDir = col === colName ? (dir === 'desc' ? '' : 'desc') : defaultSortDirection
+  const onColumnClick = (column: string, defaultSortDirection: string) => (e: SyntheticEvent) => {
+    const direction = sort.column === column ? (sort.direction === 'desc' ? '' : 'desc') : defaultSortDirection
 
-    setSort([colName, colDir])
+    setSort({ column, direction })
     setPage(0)
     e.preventDefault()
   }
@@ -83,7 +76,6 @@ export default ({ match }: Props) => {
     logout()
   }
 
-  // TODO: sort by columns (title)
   return (
     <pageContext.Provider value={{ refresh: state.retry }}>
       <Paper>
@@ -94,13 +86,13 @@ export default ({ match }: Props) => {
               <TableCell align="right" className={classes.firstColumn}>
                 <Link href="#" className={classes.link} onClick={onColumnClick('id', 'desc')}>
                   <span>{t('routes.home.idColumn')}</span>
-                  {sort[0] === 'id' && (sort[1] === 'desc' ? <DescIcon /> : <AscIcon />)}
+                  {sort.column === 'id' && (sort.direction === 'desc' ? <DescIcon /> : <AscIcon />)}
                 </Link>
               </TableCell>
               <TableCell>
                 <Link href="#" className={classes.link} onClick={onColumnClick('title', 'asc')}>
                   <span>{t('routes.home.titleColumn')}</span>
-                  {sort[0] === 'title' && (sort[1] === 'desc' ? <DescIcon /> : <AscIcon />)}
+                  {sort.column === 'title' && (sort.direction === 'desc' ? <DescIcon /> : <AscIcon />)}
                 </Link>
               </TableCell>
               <TableCell>{t('routes.home.descriptionColumn')}</TableCell>
