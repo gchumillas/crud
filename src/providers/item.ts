@@ -21,12 +21,13 @@ export const readItems = async (token: string, params?: {
   numRows: number,
   items: Item[]
 }> => {
+  const colNames: { [key: string]: string } = { page: 'page', sort: 'sort' }
   const query = _.map(params, (value, key) => {
     const val = key === 'sort'
       ? [_.get(value, 'column'), _.get(value, 'direction')].join()
       : value
 
-    return [key, val].join('=')
+    return [colNames[key], val].join('=')
   }).join('&')
 
   const url = [API_URL, ['/items', query].join('?')].join('')
