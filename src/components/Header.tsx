@@ -4,12 +4,11 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Home as HomeIcon } from '@material-ui/icons'
 import {
   AppBar, Toolbar, IconButton, Typography, Link, Button,
-  DialogTitle, DialogContent, DialogContentText, DialogActions
+  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions
 } from '@material-ui/core'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import { appContext } from '../lib/context'
 import SubmitButton from './buttons/SubmitButton'
-import Dialog from './Dialog'
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -44,7 +43,7 @@ const Header = () => {
         </IconButton>
       </Toolbar>
       {/* CONFIRM DIALOG */}
-      <Dialog open={confirmDialogOpen} maxWidth="xs">
+      <Dialog open={confirmDialogOpen} fullWidth maxWidth="xs">
         <DialogTitle>{t('header.confirmDialogTitle')}</DialogTitle>
         <DialogContent>
           <DialogContentText>

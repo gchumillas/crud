@@ -1,16 +1,15 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import { DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
 import SubmitButton from '../components/buttons/SubmitButton'
-import Dialog from '../components/Dialog'
 
 export default () => {
   const history = useHistory()
   const { t } = useTranslation()
 
   return (
-    <Dialog maxWidth="xs">
+    <Dialog open fullWidth maxWidth="xs">
       <DialogTitle>{t('routes.notFound.title')}</DialogTitle>
       <DialogContent>
         <DialogContentText>

@@ -1,16 +1,23 @@
-import _ from 'lodash'
-import React from 'react'
+import React, { SyntheticEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAsyncRetry } from 'react-use'
 import { Switch, Route, match, useHistory } from 'react-router-dom'
-import { readItems } from '../providers/item'
+import clsx from 'clsx'
+import { makeStyles } from '@material-ui/core/styles'
+import { Item, readItems } from '../providers/item'
 import {
+  KeyboardArrowDown as DescIcon,
+  KeyboardArrowUp as AscIcon,
   Add as AddIcon,
   Edit as EditIcon,
   Delete as DeleteIcon
 } from '@material-ui/icons'
-import { Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from '@material-ui/core'
+import {
+  Paper, IconButton, Snackbar, LinearProgress, Link,
+  Table, TableHead, TableRow, TableCell, TableBody, TablePagination,
+} from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
+import { HTTP_UNAUTHORIZED, getErrorStatus } from '../lib/http'
 import NotFoundPage from './NotFoundDialog'
 import CreateItemDialog from './CreateItemDialog'
 import EditItemDialog from './EditItemDialog'
@@ -20,27 +27,77 @@ type Props = {
   match: match
 }
 
+const useStyles = makeStyles(() => ({
+  hidden: {
+    visibility: 'hidden'
+  },
+  firstColumn: {
+    width: 1,
+    whiteSpace: 'nowrap'
+  },
+  link: {
+    display: 'inline-flex',
+    verticalAlign: 'middle',
+    alignItems: 'center'
+  }
+}))
+
 export default ({ match }: Props) => {
+  const classes = useStyles()
   const history = useHistory()
   const { t } = useTranslation()
-  const { token } = React.useContext(appContext)
-  const state = useAsyncRetry(() => readItems(token))
-  const rows = _.get(state.value, 'items') || []
-  const path = _.trimEnd(match.path, '/')
+  const { token, logout } = React.useContext(appContext)
+  const [page, setPage] = React.useState(0)
+  const [sort, setSort] = React.useState<{ column: string, direction: string }>({ column: 'id', direction: 'desc' })
+  const [rowsPerPage, setRowsPerPage] = React.useState(0)
+  const [numRows, setNumRows] = React.useState(0)
+  const [rows, setRows] = React.useState<Item[]>([])
 
-  // TODO: what happens on expiration session (401 error)?
-  // TODO: state.loading, state.error && state.value
+  const state = useAsyncRetry(async () => {
+    const doc = await readItems(token, { page, sort })
+
+    setSort({ column: doc.sortColumn, direction: doc.sortDirection })
+    setRowsPerPage(doc.rowsPerPage)
+    setNumRows(doc.numRows)
+    setRows(doc.items)
+  }, [page, sort.column, sort.direction])
+
+  const onColumnClick = (column: string, defaultSortDirection: string) => (e: SyntheticEvent) => {
+    const direction = sort.column === column ? (sort.direction === 'desc' ? '' : 'desc') : defaultSortDirection
+
+    setSort({ column, direction })
+    setPage(0)
+    e.preventDefault()
+  }
+
+  const status = state.error && getErrorStatus(state.error)
+
+  if (status === HTTP_UNAUTHORIZED) {
+    logout()
+  }
+
   return (
     <pageContext.Provider value={{ refresh: state.retry }}>
       <Paper>
+        <LinearProgress color="secondary" className={clsx({ [classes.hidden]: !state.loading })} />
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>{t('routes.home.titleColumn')}</TableCell>
+              <TableCell align="right" className={classes.firstColumn}>
+                <Link href="#" className={classes.link} onClick={onColumnClick('id', 'desc')}>
+                  <span>{t('routes.home.idColumn')}</span>
+                  {sort.column === 'id' && (sort.direction === 'desc' ? <DescIcon /> : <AscIcon />)}
+                </Link>
+              </TableCell>
+              <TableCell>
+                <Link href="#" className={classes.link} onClick={onColumnClick('title', 'asc')}>
+                  <span>{t('routes.home.titleColumn')}</span>
+                  {sort.column === 'title' && (sort.direction === 'desc' ? <DescIcon /> : <AscIcon />)}
+                </Link>
+              </TableCell>
               <TableCell>{t('routes.home.descriptionColumn')}</TableCell>
               <TableCell align="right">
-                {/* TODO: replace literal by constant */}
-                <IconButton title={t('routes.home.addItem')} onClick={() => history.push(`${path}/create-item`)}>
+                <IconButton title={t('routes.home.addItem')} onClick={() => history.push('/create-item')}>
                   <AddIcon />
                 </IconButton>
               </TableCell>
@@ -49,15 +106,18 @@ export default ({ match }: Props) => {
           <TableBody>
             {rows.map(row => (
               <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
+                <TableCell align="right">
+                  #{row.id}
+                </TableCell>
+                <TableCell>
                   {row.title}
                 </TableCell>
                 <TableCell>{row.description}</TableCell>
                 <TableCell align="right">
-                  <IconButton title={t('routes.home.editItem')} onClick={() => history.push(`${path}/edit-item/${row.id}`)}>
+                  <IconButton title={t('routes.home.editItem')} onClick={() => history.push(`/edit-item/${row.id}`)}>
                     <EditIcon />
                   </IconButton>
-                  <IconButton title={t('routes.home.deleteItem')} onClick={() => history.push(`${path}/delete-item/${row.id}`)} color="secondary">
+                  <IconButton title={t('routes.home.deleteItem')} onClick={() => history.push(`/delete-item/${row.id}`)} color="secondary">
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
@@ -65,12 +125,21 @@ export default ({ match }: Props) => {
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+          component="div"
+          rowsPerPageOptions={[rowsPerPage]}
+          count={numRows}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={(_, page) => setPage(page)}
+        />
       </Paper>
+      <Snackbar open={!!status} message={t(`http.${status}`)} />
       <Switch>
-        <Route exact path={`${path}/`} />
-        <Route path={`${path}/create-item`} component={CreateItemDialog} />
-        <Route path={`${path}/edit-item/:id`} component={EditItemDialog} />
-        <Route path={`${path}/delete-item/:id`} component={DeleteItemDialog} />
+        <Route exact path={'/'} />
+        <Route path={'/create-item'} component={CreateItemDialog} />
+        <Route path={'/edit-item/:id'} component={EditItemDialog} />
+        <Route path={'/delete-item/:id'} component={DeleteItemDialog} />
         <Route component={NotFoundPage} />
       </Switch>
     </pageContext.Provider>

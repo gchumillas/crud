@@ -1,14 +1,36 @@
+import _ from 'lodash'
 import { http } from '../lib/http'
 import { API_URL } from '../lib/env'
 
-export const readItems = async (token: string): Promise<{
-  items: Array<{
-    id: string,
-    title: string,
-    description: string
-  }>
+export type Item = {
+  id: string,
+  title: string,
+  description: string
+}
+
+export const readItems = async (token: string, params?: {
+  page?: number,
+  sort?: {
+    column: string,
+    direction?: string
+  }
+}): Promise<{
+  sortColumn: string,
+  sortDirection: string,
+  rowsPerPage: number,
+  numRows: number,
+  items: Item[]
 }> => {
-  const url = [API_URL, '/items'].join('')
+  const colNames: { [key: string]: string } = { page: 'page', sort: 'sort' }
+  const query = _.map(params, (value, key) => {
+    const val = key === 'sort'
+      ? [_.get(value, 'column'), _.get(value, 'direction')].join()
+      : value
+
+    return [colNames[key], val].join('=')
+  }).join('&')
+
+  const url = [API_URL, ['/items', query].join('?')].join('')
   const res = await http(token).get(url)
 
   return res.data
