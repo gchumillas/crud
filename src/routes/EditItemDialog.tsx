@@ -27,7 +27,6 @@ export default () => {
   const [submitState, onSubmit] = useAsyncFn(async () => {
     await updateItem(token, params.id, title, description)
     refresh()
-    // TODO: (all) go to item
     history.push('/')
   }, [params.id, title, description])
   const loading = submitState.loading || initState.loading
