@@ -41,7 +41,6 @@ const App = () => {
                 return token ? <Redirect to={page} /> : <LoginDialog />
               }}
             />
-            {/* TODO: move ProtectedRoute here */}
             <ProtectedRoute token={token} path="/" component={HomePage} />
           </Switch>
         </BrowserRouter>
