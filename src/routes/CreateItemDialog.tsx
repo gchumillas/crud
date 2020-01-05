@@ -18,7 +18,6 @@ export default () => {
   const [title, setTitle] = React.useState('')
   const [description, setDescription] = React.useState('')
   const [state, onSubmit] = useAsyncFn(async () => {
-    // TODO: (all) check required fields
     await createItem(token, title, description)
     refresh()
     history.push('/')
