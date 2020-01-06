@@ -1,5 +1,8 @@
 # A simple CRUD application.
 
+This is a client-side repository. You'll find the server-side API here:
+https://github.com/gchumillas/crud-api
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
