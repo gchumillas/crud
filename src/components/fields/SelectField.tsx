@@ -7,8 +7,8 @@ type Props = Omit<SelectProps, 'onChange'> & {
   onChange?: (value: string) => void
 }
 
-export default ({ label, value, options, onChange, ...rest }: Props) => (
-  <FormControl fullWidth>
+export default ({ label, value, options, onChange, fullWidth = true, ...rest }: Props) => (
+  <FormControl fullWidth={fullWidth}>
     {label && <InputLabel>{label}</InputLabel>}
     <Select value={value} onChange={e => onChange && onChange(`${e.target.value}`)} {...rest}>
       {options.map(({ value, label }, key) => (
