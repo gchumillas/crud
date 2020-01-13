@@ -1,9 +1,9 @@
 # A simple CRUD application.
 
-This is the client-side repository.
-
-You'll find the server-side API here:<br>
+This is the client-side repository. You'll find the server-side API here:<br>
 https://github.com/gchumillas/crud-api
+
+![demo](https://user-images.githubusercontent.com/5312427/72297283-de6f9580-365b-11ea-88ed-3bf5c8ab7e39.gif)
 
 ## Available Scripts
 
