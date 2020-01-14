@@ -31,14 +31,26 @@ const useStyles = makeStyles(() => ({
   hidden: {
     visibility: 'hidden'
   },
-  firstColumn: {
-    width: 1,
-    whiteSpace: 'nowrap'
+  table: {
+    '& th:first-child': {
+      width: 1
+    },
+    '& td': {
+      whiteSpace: 'nowrap'
+    }
   },
   link: {
     display: 'inline-flex',
     verticalAlign: 'middle',
     alignItems: 'center'
+  },
+  longText: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    whiteSpace: 'pre-line',
+    '-webkit-box-orient': 'vertical',
+    '-webkit-line-clamp': 2,
   }
 }))
 
@@ -80,10 +92,10 @@ export default ({ match }: Props) => {
     <pageContext.Provider value={{ refresh: state.retry }}>
       <Paper>
         <LinearProgress color="secondary" className={clsx({ [classes.hidden]: !state.loading })} />
-        <Table>
+        <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell align="right" className={classes.firstColumn}>
+              <TableCell align="right">
                 <Link href="#" className={classes.link} onClick={onColumnClick('id', 'desc')}>
                   <span>{t('routes.home.idColumn')}</span>
                   {sort.column === 'id' && (sort.direction === 'desc' ? <DescIcon /> : <AscIcon />)}
@@ -112,7 +124,9 @@ export default ({ match }: Props) => {
                 <TableCell>
                   {row.title}
                 </TableCell>
-                <TableCell>{row.description}</TableCell>
+                <TableCell>
+                  <span className={classes.longText}>{row.description}</span>
+                </TableCell>
                 <TableCell align="right">
                   <IconButton title={t('routes.home.editItem')} onClick={() => history.push(`/edit-item/${row.id}`)}>
                     <EditIcon />
