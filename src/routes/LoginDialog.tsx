@@ -1,10 +1,11 @@
 import React from 'react'
+import _ from 'lodash'
 import { useAsyncFn } from 'react-use'
 import { useTranslation } from 'react-i18next'
 import { Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from '@material-ui/core'
 import { appContext } from '../lib/context'
-import { getErrorStatus } from '../lib/http'
 import { getShortLang } from '../lib/i18n'
+import { HTTP_FORBIDDEN } from '../lib/http'
 import SelectField from '../components/fields/SelectField'
 import TextField from '../components/fields/TextField'
 import SubmitButton from '../components/buttons/SubmitButton'
@@ -15,9 +16,18 @@ export default () => {
   const [language, setLanguage] = React.useState(getShortLang(i18n.language))
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
-  const [state, submit] = useAsyncFn(() => login(username, password), [username, password])
-  const status = state.error && getErrorStatus(state.error)
   const languages = ['en', 'es'].map(value => ({ value, label: t(`routes.login.${value}`) }))
+
+  const [state, submit] = useAsyncFn(async () => {
+    if (!username || !password) {
+      throw new Error('errors.requiredFields')
+    }
+
+    await login(username, password)
+  }, [username, password])
+
+  const status = _.get(state.error, 'response.status')
+  const message = status ? `http.${status}` : _.get(state.error, 'message')
 
   const onLanguageChange = (value: string) => {
     i18n.changeLanguage(value)
@@ -32,10 +42,10 @@ export default () => {
         <TextField autoFocus autoComplete="username" label={t('routes.login.usernameField')} value={username} onChange={setUsername} />
         <TextField autoComplete="password" type="password" label={t('routes.login.passwordField')} value={password} onChange={setPassword} />
       </DialogContent>
-      {status && (
+      {message && (
         <DialogContent>
           <DialogContentText color="error">
-            {status === 403 ? t('routes.login.invalidCredentials') : t(`http.${status}`)}
+            {status === HTTP_FORBIDDEN ? t('routes.login.invalidCredentials') : t(message)}
           </DialogContentText>
         </DialogContent>
       )}
