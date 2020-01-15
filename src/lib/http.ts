@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import axios from 'axios'
 import { API_URL } from './env'
 
@@ -13,10 +12,4 @@ export const http = (token: string) => {
       ...(token && { Authorization: `Bearer ${token}` })
     }
   })
-}
-
-export const getErrorStatus = (error: Error): number => {
-  const response = _.get(error, 'response')
-
-  return _.get(response, 'status', HTTP_UNKNOWN)
 }

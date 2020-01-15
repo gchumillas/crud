@@ -1,10 +1,11 @@
 import React from 'react'
+import _ from 'lodash'
 import { useAsyncFn, useAsync } from 'react-use'
 import { useTranslation } from 'react-i18next'
 import { useHistory, useParams } from 'react-router-dom'
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
-import { HTTP_UNAUTHORIZED, getErrorStatus } from '../lib/http'
+import { HTTP_UNAUTHORIZED } from '../lib/http'
 import { readItem, updateItem } from '../providers/item'
 import SubmitButton from '../components/buttons/SubmitButton'
 import TextField from '../components/fields/TextField'
@@ -18,20 +19,28 @@ export default () => {
   const { refresh } = React.useContext(pageContext)
   const [title, setTitle] = React.useState('')
   const [description, setDescription] = React.useState('')
+
   const initState = useAsync(async () => {
     const data = await readItem(token, params.id)
 
     setTitle(data.title)
     setDescription(data.description)
   }, [params.id])
+
   const [submitState, onSubmit] = useAsyncFn(async () => {
+    if (!title) {
+      throw new Error('errors.requiredFields')
+    }
+
     await updateItem(token, params.id, title, description)
     refresh()
     history.push('/')
   }, [params.id, title, description])
+
   const loading = submitState.loading || initState.loading
   const error = submitState.error || initState.error
-  const status = error && getErrorStatus(error)
+  const status = _.get(error, 'response.status')
+  const message = status ? `http.${status}` : _.get(error, 'message')
 
   if (status === HTTP_UNAUTHORIZED) {
     logout()
@@ -44,9 +53,9 @@ export default () => {
         <TextField autoFocus required label={t('routes.editItem.titleField')} value={title} onChange={setTitle} />
         <TextArea label={t('routes.editItem.descriptionField')} value={description} onChange={setDescription} />
       </DialogContent>
-      {status && (
+      {message && (
         <DialogContent>
-          <DialogContentText color="error">{t(`http.${status}`)}</DialogContentText>
+          <DialogContentText color="error">{t(message)}</DialogContentText>
         </DialogContent>
       )}
       <DialogActions>
