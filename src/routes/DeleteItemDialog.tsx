@@ -1,9 +1,10 @@
 import React from 'react'
+import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
 import { useAsyncFn } from 'react-use'
 import { useHistory, useParams } from 'react-router-dom'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
-import { HTTP_UNAUTHORIZED, getErrorStatus } from '../lib/http'
+import { HTTP_UNAUTHORIZED } from '../lib/http'
 import { appContext, pageContext } from '../lib/context'
 import { deleteItem } from '../providers/item'
 import SubmitButton from '../components/buttons/SubmitButton'
@@ -14,12 +15,15 @@ export default () => {
   const { t } = useTranslation()
   const { token, logout } = React.useContext(appContext)
   const { refresh } = React.useContext(pageContext)
+
   const [state, onSubmit] = useAsyncFn(async () => {
     await deleteItem(token, params.id)
     refresh()
     history.push('/')
   }, [params.id])
-  const status = state.error && getErrorStatus(state.error)
+
+  const status = _.get(state.error, 'response.status')
+  const message = status ? `http.${status}` : _.get(state.error, 'message')
 
   if (status === HTTP_UNAUTHORIZED) {
     logout()
@@ -33,9 +37,9 @@ export default () => {
           {t('routes.deleteItem.confirmText')}
         </DialogContentText>
       </DialogContent>
-      {status && (
+      {message && (
         <DialogContent>
-          <DialogContentText color="error">{t(`http.${status}`)}</DialogContentText>
+          <DialogContentText color="error">{t(message)}</DialogContentText>
         </DialogContent>
       )}
       <DialogActions>
