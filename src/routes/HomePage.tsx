@@ -1,4 +1,5 @@
-import React, { SyntheticEvent } from 'react'
+import React from 'react'
+import _ from 'lodash'
 import { useTranslation } from 'react-i18next'
 import { useAsyncRetry } from 'react-use'
 import { Switch, Route, match, useHistory } from 'react-router-dom'
@@ -17,7 +18,7 @@ import {
   Table, TableHead, TableRow, TableCell, TableBody, TablePagination,
 } from '@material-ui/core'
 import { appContext, pageContext } from '../lib/context'
-import { HTTP_UNAUTHORIZED, getErrorStatus } from '../lib/http'
+import { HTTP_UNAUTHORIZED } from '../lib/http'
 import NotFoundPage from './NotFoundDialog'
 import CreateItemDialog from './CreateItemDialog'
 import EditItemDialog from './EditItemDialog'
@@ -74,7 +75,7 @@ export default ({ match }: Props) => {
     setRows(doc.items)
   }, [page, sort.column, sort.direction])
 
-  const onColumnClick = (column: string, defaultSortDirection: string) => (e: SyntheticEvent) => {
+  const onColumnClick = (column: string, defaultSortDirection: string) => (e: React.SyntheticEvent) => {
     const direction = sort.column === column ? (sort.direction === 'desc' ? '' : 'desc') : defaultSortDirection
 
     setSort({ column, direction })
@@ -82,7 +83,8 @@ export default ({ match }: Props) => {
     e.preventDefault()
   }
 
-  const status = state.error && getErrorStatus(state.error)
+  const status = _.get(state.error, 'response.status')
+  const message = status ? `http.${status}` : _.get(state.error, 'message', '')
 
   if (status === HTTP_UNAUTHORIZED) {
     logout()
@@ -148,7 +150,7 @@ export default ({ match }: Props) => {
           onChangePage={(_, page) => setPage(page)}
         />
       </Paper>
-      <Snackbar open={!!status} message={t(`http.${status}`)} />
+      <Snackbar open={!!message} message={t(message)} />
       <Switch>
         <Route exact path={'/'} />
         <Route path={'/create-item'} component={CreateItemDialog} />
