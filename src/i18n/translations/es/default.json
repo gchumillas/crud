@@ -1,5 +1,8 @@
 {
   "appTitle": "CRUD",
+  "errors": {
+    "requiredFields": "Rellene los campos obligatorios."
+  },
   "http": {
     "666": "Error de red.",
     "400": "Petición incorrecta.",
