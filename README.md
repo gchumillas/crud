@@ -1,6 +1,6 @@
 # A simple CRUD application.
 
-Despite its simplicity, a [CRUD application](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) is a good reference for learning different concepts related to the web development, such as routing, authentication, component based approach, etc. And that's why I created this project. To ilustrate some tutorials I'm currently working on:
+Despite its simplicity, a [CRUD application](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) is a good reference for learning different concepts related to the web development, such as routing, authentication, internationalization, component based approach, etc. And that's why I created this project. To ilustrate some tutorials I'm currently working on:
 
 1. [Extending Material-UI components](https://gonzalo-chumillas.github.io/extendind-mui-components/)
 2. [UI feedback](https://gonzalo-chumillas.github.io/ui-feedback/)
