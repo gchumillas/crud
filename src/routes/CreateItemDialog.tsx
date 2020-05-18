@@ -20,6 +20,7 @@ export default () => {
   const [description, setDescription] = React.useState('')
 
   const [state, onSubmit] = useAsyncFn(async () => {
+    // The client didn't fill required fields.
     if (!title) {
       throw new Error('errors.requiredFields')
     }
@@ -43,13 +44,15 @@ export default () => {
         <TextField autoFocus required label={t('routes.createItem.titleField')} value={title} onChange={setTitle} />
         <TextArea label={t('routes.createItem.descriptionField')} value={description} onChange={setDescription} />
       </DialogContent>
-      {message && (
+      {/* ERROR: Display a message */}
+      {state.error && (
         <DialogContent>
           <DialogContentText color="error">{t(message)}</DialogContentText>
         </DialogContent>
       )}
       <DialogActions>
         <Button disabled={state.loading} onClick={() => history.push('/')}>{t('buttons.cancel')}</Button>
+        {/* LOADING: Disable the submit button and shows a hourglass icon. */}
         <SubmitButton disabled={state.loading} onClick={onSubmit}>{t('buttons.continue')}</SubmitButton>
       </DialogActions>
     </Dialog>
