@@ -45,7 +45,7 @@ export default () => {
         <TextArea label={t('routes.createItem.descriptionField')} value={description} onChange={setDescription} />
       </DialogContent>
       {/* ERROR: Display a message */}
-      {state.error && (
+      {message && (
         <DialogContent>
           <DialogContentText color="error">{t(message)}</DialogContentText>
         </DialogContent>
